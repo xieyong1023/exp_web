@@ -1,0 +1,16 @@
+<div id="player1">正在加载视频...</div>
+<script type="text/javascript" src="swfobject.js"></script>
+<script type="text/javascript">
+	var s5 = new SWFObject("FlvPlayer.swf","playlist","357","286","7");
+	s5.addParam("allowfullscreen","true");
+	//s5.addVariable("autostart","true");
+	s5.addVariable("repeat","true");	
+	s5.addVariable("image","images/index_07.jpg");
+	s5.addVariable("file","../uploadfile/sp.flv");
+	s5.addVariable("backcolor","0x000000");
+	s5.addVariable("frontcolor","0xCCCCCC");
+	s5.addVariable("lightcolor","0xffffff");
+	s5.addVariable("width","357");
+	s5.addVariable("height","286");
+	s5.write("player1");
+</script>
