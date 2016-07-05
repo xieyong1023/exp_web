@@ -78,7 +78,7 @@
 			<td colspan="4">
 				<select name="category" id="category" class="validate" validtip="required">
 				<?php foreach($categoryarr as $category):?>
-				<option value="<?=$category['id']?>"<?php if (isset($view['category'])&&$view['category']==$category['id']): ?>selected<?php endif; ?>><?=$category['name']?></option>
+				<option value="<?=$category['id']?>"<?php if (isset($view['category'])&&$view['category']==$category['id']): ?>selected<?php endif; ?>><?=$category['content']?></option>
 				<?php endforeach;?>
 				</select>
 			</td>
