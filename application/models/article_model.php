@@ -279,5 +279,14 @@ class Article_model extends CI_Model{
 		
 		return $listData;
 	}
+	
+	function getByCategoryId($category)
+	{
+		$this->db->where(array(
+				'status' => 1,
+				'category' => $category,
+		));
+		$this->db->order_by('puttime', 'desc');
+		return $this->db->get('article')->result_array();
+	}
 }
-?>

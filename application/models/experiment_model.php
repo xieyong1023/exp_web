@@ -20,7 +20,7 @@ class Experiment_model extends CI_Model{
 	function loadUse($user_name){
 		$this->db->select('experiment_id');
 		$this->db->where('username', $user_name);
-		$exp_array = $this->db->get('use')->result_array();
+		$exp_array = $this->db->get('userecord')->result_array();
 		foreach ($exp_array as $key => $value){
 			$exp_array[$key] = array_flip($value);
 		}
@@ -57,7 +57,7 @@ class Experiment_model extends CI_Model{
 	function countMyExp($user_name){
 		$this->db->select('experiment_id');
 		$this->db->where('username', $user_name);
-		$exp_array = $this->db->get('use')->result_array();
+		$exp_array = $this->db->get('userecord')->result_array();
 		foreach ($exp_array as $key => $value){
 			$exp_array[$key] = array_flip($value);
 		}
@@ -73,4 +73,3 @@ class Experiment_model extends CI_Model{
 		return count($exp_id);
 	}
 }
-?>

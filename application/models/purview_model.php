@@ -112,7 +112,7 @@ class Purview_model extends CI_Model
 				foreach($arr as $key=>$item){
 					$newpurviewid[] = $item['id'];
 					$newpurviewarr[$item['class']]['id'] = $item['id'];
-					$newpurviewarr[$item['class']]['class'] =  $item['class'];
+					$newpurviewarr[$item['class']]['class'] = $item['class'];
 					$newpurviewarr[$item['class']]['method'] = $purview[1][$item['class']]['method'];
 					$grouppurview[$item['parent']][] = $item;
 					if($item['parent']==0){

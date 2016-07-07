@@ -43,7 +43,7 @@ class Test extends CI_Controller
 		$this->load->model('Purview_model');
 		$a = $this->Purview_model->getPurview(1);
 		echo '<pre>';
-		var_dump($a);
+		print_r($a);
 		echo '</pre>';
 // 		$a = md5pass("123456", "VHCSR1");
 // 		echo $a;

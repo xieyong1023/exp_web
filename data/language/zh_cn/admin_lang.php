@@ -12,6 +12,8 @@ $lang['order'] = '顺序';
 $lang['status'] = '状态';
 $lang['status0'] = '<font color="red">禁用</font>';
 $lang['status1'] = '启用';
+$lang['dev_status0'] = '<font color="green">空闲</font>';
+$lang['dev_status1'] = '<font color="red">占用</font>';
 $lang['field'] = '字段';
 $lang['value'] = '值';
 $lang['thumb'] = '缩略图';
@@ -212,6 +214,8 @@ $lang['func_order'] = '订单管理';
 $lang['func_apply'] = '应聘管理';
 $lang['func_tpltags'] = '模板标签';
 $lang['func_clearcache'] = '清除缓存';
+$lang['func_experiment'] = '设备管理';
+$lang['func_userecord'] = '使用记录';
 
 /*main_top*/
 $lang['welcome'] = '欢迎您！';

@@ -6,7 +6,8 @@
 				<tr>
 					<td>
 						<a href="<?=site_aurl($tablefunc)?>" class="current"><?=lang('func_'.$tablefunc)?></a>
-						<span><?=lang('filter')?></span><input type="text" name="keyword" value="<?=$search['keyword']?>" class="input-text">
+						<span><?=lang('filter')?></span>
+						<input type="text" name="keyword" value="<?=$search['keyword']?>" class="input-text">
 						<select name="searchtype">
 							<option value="title" <?php if ($search['searchtype'] == 'title'): ?>selected<?php endif; ?>><?=lang('title')?></option>
 							<option value="id" <?php if ($search['searchtype'] == 'id'): ?>selected<?php endif; ?>><?=lang('id')?></option>
