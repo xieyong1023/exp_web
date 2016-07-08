@@ -17,12 +17,7 @@
 							<?php foreach($categoryarr as $category):?>
 							<option value="<?=$category['id']?>"<?php if ($search['category']==$category['id']): ?>selected<?php endif; ?>><?=$category['content']?></option>
 							<?php endforeach;?>
-						</select>
-						<select name="recommend"><option value="0"><?=lang('recommend')?></option>
-							<?php foreach($recommendarr as $recommend):?>
-							<option value="<?=$recommend['id']?>"<?php if ($search['recommend']==$recommend['id']): ?>selected<?php endif; ?>><?=$recommend['title']?></option>
-							<?php endforeach;?>
-						</select>
+						</select>						
 						<input type="submit" class="btn" value="<?=lang('search')?>">
 					</td>
 				</tr>
@@ -34,10 +29,11 @@
 					<th width=30  align="left"><input type="checkbox" onclick="checkAll(this)"></th>
 					<th width=50  align="left"><?=lang('order')?></th>
 					<th width=40  align="left"><?=lang('id')?></th>
-					<th align=left><?=lang('title')?></th>
-					<th width=80  align=left><?=lang('category')?></th>
-					<th width=80   align="left"><?=lang('hits')?></th>
-					<th width=80   align="left"><?=lang('realhits')?></th>
+					<th width=150 align="left"><?php echo '栏目'?></th>
+					<th align="left"><?=lang('title')?></th>
+					<th width=80  align="left"><?php echo '附件'?></th>
+					<th width=150 align="left"><?php echo '发布时间'?></th>
+					<th width=50   align="left"><?=lang('hits')?></th>
 					<th width=50 align="left"><?=lang('status')?></th>
 					<th width=50  align="left"><?=lang('operate')?></th>
 				</tr>
@@ -67,6 +63,7 @@
 	<?php $this->load->view('admin_foot.php');?>
 	
 	<?php elseif($tpl=='view'):?>
+	<script type="text/javascript" src="<?=base_url('js/admin.article.js')?>"></script>
 	<form name="formview" id="formview" action="" method="post">
 		<input type="hidden" name="action" id="action" value="<?=site_aurl($tablefunc)?>">
 		<input type="hidden" name="id" value="<?=isset($view['id'])?$view['id']:'';?>">
@@ -83,9 +80,6 @@
 				<?php endforeach;?>
 				</select>
 			</td>
-			<td rowspan="4" class="upic">
-				<img src="<?=isset($view['thumb'])&&$view['thumb']!=''?get_image_url($view['thumb']):get_image_url('data/nopic8080.gif')?>" onclick="uploadpic(this,'thumb')" width="150" id="imgthumb"><input type="hidden" name="thumb" id="thumb" value="<?=isset($view['thumb'])?$view['thumb']:'';?>"><br><input type="button" class="btn" onclick="unsetThumb('thumb','imgthumb')" value="<?=lang('unsetpic')?>">	
-			</td>
 		</tr>
 		<tr>
 			<td>
@@ -100,64 +94,11 @@
 		</tr>
    		<tr>
 			<td>
-				<?=lang('alt')?>
-			</td>
-			<td colspan="4">
-				<input type="text" name="alt" id="alt" class="input-text" size="60"  value="<?=isset($view['alt'])?$view['alt']:'';?>">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<?=lang('keywords')?>
-			</td>
-			<td colspan="4"><input type="text" name="keywords" id="keywords" class="input-text" size="60"  value="<?=isset($view['keywords'])?$view['keywords']:'';?>">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<?=lang('description')?>
-			</td>
-			<td colspan="4">
-				<textarea rows="5" cols="80" class="txtarea" name="description" id="description"><?=isset($view['description'])?$view['description']:'';?>
-				</textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>
 				<?=lang('content')?>
 			</td>
 			<td colspan="5">
 				<textarea style="width:668px;height:300px;" name="content" id="content" class="editor"><?=isset($view['content'])?htmlspecialchars($view['content']):'';?>
 				</textarea>
-			</td>
-		</tr>
-        <tr>
-			<td>
-				<?=lang('tag')?>
-			</td>
-			<td colspan="5">
-				<input type="text" name="tags" id="tags" size="80" class="input-text" value="<?=isset($tags)?$tags:'';?>"><?=lang('tagtip')?>
-			</td>
-		</tr>
-		<tr>
-			<td><?=lang('recommend')?></td>
-			<td colspan="5">
-				<?php foreach($recommendarr as $recommend):?>
-				<?=$recommend['title']?><input type="checkbox" name="recommends[]" <?php if(in_array($recommend['id'],$recommends)):?>checked<?php endif;?> value="<?=$recommend['id']?>">
-				<?php endforeach;?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<?=lang('copyfrom')?>
-			</td>
-			<td>
-				<input type="text" name="copyfrom" id="copyfrom" class="input-text" value="<?=isset($view['copyfrom'])?$view['copyfrom']:'';?>">
-		</td>
-			<td>
-				<?=lang('fromlink')?>
-			</td>
-			<td colspan="3"><input type="text" name="fromlink" id="fromlink" size="63" class="input-text" value="<?=isset($view['fromlink'])?$view['fromlink']:base_url()?>">
 			</td>
 		</tr>
 		<tr>
@@ -169,17 +110,9 @@
 			</td>
 			<td>
 				<?=lang('puttime')?>
-			</td>
-			<td>
 				<input type="text" name="puttime" id="puttime"  readOnly onClick="WdatePicker({doubleCalendar:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"  class="input-text Wdate" value="<?=isset($view['puttime'])?date('Y-m-d H:i:s',$view['puttime']):date('Y-m-d H:i:s')?>">
 			</td>
-			<td>
-				<?=lang('tpl')?>
-			</td>
-			<td>
-				<input type="text" name="tpl" id="tpl" class="input-text" value="<?=isset($view['tpl'])?$view['tpl']:'';?>">
-			</td>
-			</tr>
+		</tr>
 		<tr>
 			<td>
 				<?=lang('order')?>
@@ -189,14 +122,35 @@
 			</td>
 			<td>
 				<?=lang('status')?>
-			</td>
-			<td colspan="3"><?=lang('status1')?>
+				<?=lang('status1')?>
 				<input type="radio" name="status" value="1" <?php if(!isset($view['status'])||$view['status']==1){echo 'checked';} ?> />
 				<?=lang('status0')?>
 				<input type="radio" name="status" value="0" <?php if(isset($view['status'])&&$view['status']==0){echo 'checked';} ?>  />
 			</td>
 		</tr>
+		<tr>
+			<td>附件</td>
+			<?php if(isset($view['attachfile'])):?>
+			<td><a href="<?php echo '/'.$view['attachfile']; ?>">点击下载</a></td>
+			<?php else:?>
+			<td>无</td>
+			<?php endif;?>
+		</tr>
+		<input type="hidden" name="attachfile" id="attachfile" value="<?php if(isset($view['attachfile'])){echo $view['attachfile'];}?>" />
 		</table>
 		</div>
+	</form>
+	<form enctype="multipart/form-data" method="post" id="upload_file">
+		<table cellSpacing=0 width="100%" class="content_view">
+			<tr>
+				<td>上传文件</td>
+				<td>
+					<input type="file" id="file" class="input-text" name="file" />
+					<input type="button" id="btn" class="btn" value="上传" />
+					<span id="message" style="display:none"></span>
+					<span style="float:right;"><font color="red">请在提交表单前上传文件</font></span>
+				</td>
+			</tr>
+		</table>
 	</form>
 <?php endif;?>

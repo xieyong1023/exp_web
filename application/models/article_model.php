@@ -113,7 +113,7 @@ class Article_model extends CI_Model{
 	 * $menu: 菜单数组，用于查询其分类信息
 	 */
 	function loadArticleById($id, $menu){
-		$this->db->select('category, title, uid, description, content, hits, puttime, updatetime, comments');
+		$this->db->select('category, title, uid, description, content, hits, puttime, updatetime, comments, attachfile');
 		$this->db->where('id', $id);
 		$data = $this->db->get('article')->row_array();
 		if(empty($data)){

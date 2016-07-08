@@ -2,7 +2,7 @@
 
 class Article extends CI_Controller {
 	var $tablefunc = 'article';
-	var $fields = array('category','title','keywords','description','content','copyfrom','fromlink','thumb','alt','color','isbold','hits','tpl','listorder','status');
+	var $fields = array('category','title','keywords','description','content','copyfrom','fromlink','thumb','alt','color','isbold','hits','tpl','listorder','status', 'attachfile');
 	var $funcarr = array('add','order','del');
 	var $categoryarr,$recommendarr,$editlang,$langurl;
 	function __construct(){
@@ -26,12 +26,8 @@ class Article extends CI_Controller {
 		$search['category'] = trim($post['category']);
 		$search['keyword'] = trim($post['keyword']);
 		$search['searchtype'] = trim($post['searchtype']);
-		$search['recommend'] = trim($post['recommend']);
 		if($search['category']>0){
 			$getwhere['category']=$search['category'];
-		}
-		if($search['recommend']>0){
-			$getwhere['findinset']=$search['recommend'].',recommends';
 		}
 		if($search['searchtype']=='id'){
 			if($search['keyword']!=''){
@@ -54,7 +50,6 @@ class Article extends CI_Controller {
 				'tablefunc'=>$this->tablefunc,
 				'search'=>$search,
 				'categoryarr'=>$this->categoryarr,
-				'recommendarr'=>$this->recommendarr,
 				'liststr'=>$this->_setlist($data,true),
 				'pagestr'=>show_page($pagearr,$search),
 				'funcstr'=>$this->Purview_model->getFunc($this->tablefunc,$this->funcarr),
@@ -73,8 +68,6 @@ class Article extends CI_Controller {
 			$data['puttime'] = human_to_unix($post['puttime']);
 			$data['uid'] = $this->session->userdata('uid');
 			$data['lang'] = $this->editlang;
-			$data['tags'] = $this->Tags_model->loadTagIds($post['tags'],$this->editlang);
-			$data['recommends'] = isset($post['recommends'])&&$post['recommends']?implode(',',$post['recommends']):'';
 			$id=$this->Data_model->addData($data);
 			$this->Cache_model->deleteSome($this->tablefunc.'_'.$this->editlang);
 			$this->Cache_model->deleteSome('recommend_'.$this->editlang.'_'.$this->tablefunc);
@@ -99,29 +92,21 @@ class Article extends CI_Controller {
 			$data['updatetime'] = time();
 			$data['puttime'] = human_to_unix($post['puttime']);
 			$data['uid'] = $this->session->userdata('uid');
-			$data['tags'] = $this->Tags_model->loadTagIds($post['tags'],$this->editlang);
-			$data['recommends'] = isset($post['recommends'])&&$post['recommends']?implode(',',$post['recommends']):'';
 			$this->Data_model->editData(array('id'=>$post['id']),$data);
 			$category = $this->Data_model->getSingle(array('id'=>$data['category']),'category');
 			$cachefile = $category['model'].'/detail_'.$this->editlang.'_'.$category['dir'].'_'.$post['id'];
 			if(file_exists('data/cache/'.$cachefile)){
 				$this->Cache_model->delete($cachefile);
 			}
-			$this->Cache_model->deleteSome($this->tablefunc.'_'.$this->editlang);
-			$this->Cache_model->deleteSome('recommend_'.$this->editlang.'_'.$this->tablefunc);
-			$this->Cache_model->deleteSome($category['dir'].'/related_'.$this->editlang.'_'.$post['id']);
 			show_jsonmsg(array('status'=>200,'id'=>$post['id'],'remsg'=>$this->_setlist($this->Data_model->getSingle(array('id'=>$post['id'])),false)));
 		}else{
 			$id = $this->uri->segment(4);
-			if($id>0&&$view = $this->Data_model->getSingle(array('id'=>$id))){
+			if($id > 0 && $view = $this->Data_model->getSingle(array('id'=>$id))){
 				$res = array(
 						'tpl'=>'view',
 						'tablefunc'=>$this->tablefunc,
 						'view'=>$view,
 						'categoryarr'=>$this->categoryarr,
-						'recommendarr'=>$this->recommendarr,
-						'recommends'=>$view['recommends']==''?array():explode(',',$view['recommends']),
-						'tags'=>$this->Tags_model->loadTags($view['tags'],$this->editlang)
 				);
 				show_jsonmsg(array('status'=>200,'remsg'=>$this->load->view($this->tablefunc,$res,true)));
 			}else{
@@ -170,17 +155,47 @@ class Article extends CI_Controller {
 			if($this->Purview_model->checkPurviewFunc($this->tablefunc,'del')){
 				$item['func'] .=  $this->Purview_model->getSingleFunc(site_aurl($this->tablefunc.'/del/'.$item['id']),'sdel',$item['id']);	
 			}
+			if($item['attachfile'] == ''){
+				$file = '无';
+			}else{
+				$file = '<a href="/'.$item['attachfile'].'">点击下载</a>';
+			}
 			$categorystr = isset($this->categoryarr[$item['category']])?'[<a href="'.site_url('category/'.$this->categoryarr[$item['category']]['dir']).$this->langurl.'" target="_blank"><font color="green">'.$this->categoryarr[$item['category']]['content'].'</font></a>]':'';
 			$newstr.='<tr id="tid_'.$item['id'].'">
 			<td width=30><input type=checkbox name="optid[]" value='.$item['id'].'></td>
 			<td width=50><input type="hidden" name="ids[]" value="'.$item['id'].'"><input type="text" name="listorder[]" class="input-order" size="3" value="'.$item['listorder'].'"></td>
 			<td width=40>'.$item['id'].'</td>
-			<td>'.$categorystr.'<a href="'.site_url('article/'.$item['id'].$this->langurl).'" target="_blank" style="color:'.$item['color'].'">'.$item['title'].'</a></td>
-			<td width=80>'.$item['hits'].'</td>
-			<td width=80>'.$item['realhits'].'</td>
+			<td width=150>'.$categorystr.'</td>
+			<td><a href="'.site_url('article/'.$item['id']).'" target="_blank" style="color:'.$item['color'].'">'.$item['title'].'</a></td>
+			<td width=80>'.$file.'</td>
+			<td width=150>'.date("Y-m-d H:i:s", $item['puttime']).'</td>
+			<td width=50>'.$item['hits'].'</td>
 			<td width=50 >'.lang('status'.$item['status']).'</td>
 			<td width=50>'.$item['func'].'</td></tr>';
 		}
 		return $newstr;
+	}
+	
+	public function upload_file()
+	{
+		if($_FILES['file']['error'] == UPLOAD_ERR_OK && $_FILES['file']['size'] > 0){
+			$file_name = $_FILES['file']['name'];
+			$temp_arr = explode(".", $file_name);
+			$file_ext = array_pop($temp_arr);
+			$file_ext = trim($file_ext);
+			$file_ext = strtolower($file_ext);
+				
+			$file_path = 'data/attachment/file/'.date('Ymd');
+			if(! file_exists($file_path)){
+				mkdir($file_path);
+			}
+			$save_name = $file_path.'/'.getRandChar(20).'.'.$file_ext;
+			if(! move_uploaded_file($_FILES['file']['tmp_name'], $save_name)){
+				echo json_encode(array('status' => '201', 'remsg' => '保存文件失败'));
+			}
+			echo json_encode(array('status' => '200', 'remsg' => $save_name));
+		}else{
+			echo json_encode(array('status' => '201', 'remsg' => '文件不能为空'));
+		}
 	}
 }

@@ -37,10 +37,20 @@
 							<div class="attr"><?php echo $article['hits'];?>次点击</div>
 						</div>
 						<div class="text"><?php echo $article['content'];?></div>
+						<?php if(!empty($article['attachfile'])):?>
+						<div id="attachfile">
+							<span>附件: </span>
+							<a href="<?php echo '/'.$article['attachfile']?>">点我下载附件</a>
+						</div>
+						<?php endif;?>
 						<div class="buttonBar">
 							<a id="Favorite">加入收藏</a>
 						</div>
 					</div>
+				</div>
+				<div class="sep20"></div>
+				<div class="box">
+					<div class="cell"><span>实验设备</span><span id="exp_num"></span></div>
 				</div>
 				<div class="sep20"></div>
 				<div class="box">

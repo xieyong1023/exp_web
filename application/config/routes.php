@@ -45,7 +45,6 @@ $route['tags/(.*)'] = "tags/index/$1";
 $route['detail/(.*)'] = "detail/index/$1";
 $route['search/(.*)'] = "search/index/$1";
 $route['category/(.*)'] = "category/index/$1";
-$route['download/(.*)'] = "download/index/$1";
 $route['404_override'] = '';
 $route['test/(.*)'] = "test/index/$1";
 $route['article/(.*)'] = "article/index/$1";
