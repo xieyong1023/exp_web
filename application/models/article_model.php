@@ -113,7 +113,6 @@ class Article_model extends CI_Model{
 	 * $menu: 菜单数组，用于查询其分类信息
 	 */
 	function loadArticleById($id, $menu){
-		$this->db->select('category, title, uid, description, content, hits, puttime, updatetime, comments, attachfile');
 		$this->db->where('id', $id);
 		$data = $this->db->get('article')->row_array();
 		if(empty($data)){
@@ -177,6 +176,7 @@ class Article_model extends CI_Model{
 		$this->db->where(array(
 				'articleID' => $articleID,
 				'category' => 1,
+				'status' => 1,
 		));
 		$this->db->order_by('createtime', 'asc');  //按回复时间的顺序排列
 		$data = $this->db->get()->result_array();
@@ -194,6 +194,7 @@ class Article_model extends CI_Model{
 						'articleID' => $articleID,
 						'category' => 2,        //附加评论的类型为2
 						'replytoID' => $value_a['id'],
+						'status' => 1,
 				));
 				$this->db->order_by('createtime', 'asc');
 				$attach_data = $this->db->get()->result_array();

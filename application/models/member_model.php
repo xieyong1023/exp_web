@@ -140,12 +140,9 @@ class Member_model extends CI_Model{
 	
 	/*
 	 * 保存上传的报告
-	 * @$exp_name:实验名字 , $user_name: 当前用户的名字
+	 * @$exp_id:实验id , $user_name: 当前用户的名字
 	 */
-	function saveReport($exp_name, $user_name){
-		//进行编码转换，否则会出现乱码
-		$exp_name = iconv('utf-8', 'gbk', $exp_name);
-		
+	function saveReport($exp_id, $user_name){	
 		$user = $this->getUserDetail($user_name);
 	
 		//报告存放的根目录
@@ -155,13 +152,13 @@ class Member_model extends CI_Model{
 		}
 		
 		//某个实验的单独目录
-		$exp_folder = $root_folder.'/'.$exp_name;
+		$exp_folder = $root_folder.'/'.$exp_id;
 		if(! file_exists($exp_folder)){
 			mkdir($exp_folder);
 		}
 		
-		//在该实验下某个学生的文件名
-		$file_name = $user['studentID'].'_'.$user['username'];
+		//在该实验下某个学生的报告文件名
+		$file_name = $user['studentID'];
 		
 		//设置上传文件的参数
 		$config['upload_path'] = $exp_folder;
@@ -179,16 +176,20 @@ class Member_model extends CI_Model{
 		if($data['file_size'] != 0){
 			$this->db->where(array(
 					'uid' => $user['id'],
-					'exp_name' => iconv('gbk', 'utf-8', $exp_name),
+					'exp_id' => $exp_id,
 			));
 			$this->db->delete('report');
 			
+			$this->db->where('id', $exp_id);
+			$exp = $this->db->get('experiment')->row_array();
 			$report = array(
 					'uid' => $user['id'],
 					'file_name' => $data['file_name'],
-					'exp_name' => iconv('gbk', 'utf-8', $exp_name),//为写入数据库不出现乱码，此处需要转换字符集为utf-8
-					'path' => iconv('gbk', 'utf-8', $exp_name.'/'.$data['file_name']),
+					'exp_id' => iconv('gbk', 'utf-8', $exp_id),//为写入数据库不出现乱码，此处需要转换字符集为utf-8
+					'path' => iconv('gbk', 'utf-8', $exp_id.'/'.$data['file_name']),
 					'createtime' => time(),
+					'exp_name' => $exp['name'],
+					'user_name' => $this->session->userdata('user_name'),
 			);
 			
 			$this->db->insert('report', $report);

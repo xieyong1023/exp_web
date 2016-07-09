@@ -6,11 +6,9 @@
 				<tr>
 					<td>
 						<a href="<?=site_aurl($tablefunc)?>" class="current"><?=lang('func_'.$tablefunc)?></a>
-						<span><?=lang('filter')?></span><input type="text" name="keyword" value="<?=$search['keyword']?>" class="input-text">
-						<select name="searchtype">
-							<option value="title" <?php if ($search['searchtype'] == 'title'): ?>selected<?php endif; ?>><?=lang('title')?></option>
-							<option value="id" <?php if ($search['searchtype'] == 'id'): ?>selected<?php endif; ?>><?=lang('id')?></option>
-						</select>
+						<span>文章ID</span><input type="text" name="articleID" class="input-text" value="<?php if(isset($search['articleID'])) echo $search['articleID'];?>" />
+						<span>作者</span><input type="text" name="author" class="input-text" value="<?php if(isset($search['author'])) echo $search['author'];?>" />
+						<span>回复给</span><input type="text" name="replytouser" class="input-text" value="<?php if(isset($search['replytouser'])) echo $search['replytouser'];?>" />
 						<input type="submit" class="btn" value="<?=lang('search')?>">
 					</td>
 				</tr>
@@ -20,10 +18,13 @@
 			<thead>
 				<tr>
 					<th width=30  align="left"><input type="checkbox" onclick="checkAll(this)"></th>
-					<th width=50  align="left"><?=lang('order')?></th>
 					<th width=40  align="left"><?=lang('id')?></th>
-					<th align=left><?=lang('title')?></th>
-					<th width=350   align="left"><?=lang('comments_description')?></th>
+					<th width=50  align="left"><?php echo '文章ID'?></th>
+					<th width=200 align=left><?='文章标题'?></th>
+					<th align="left"><?='内容'?></th>
+					<th width=50  align="left"><?php echo '作者'?></th>
+					<th width=50  align="left"><?php echo '回复给'?></th>
+					<th width=150 align="left"><?php echo '时间'?></th>
 					<th width=50 align="left"><?=lang('status')?></th>
 					<th width=50  align="left"><?=lang('operate')?></th>
 				</tr>
@@ -59,24 +60,18 @@
 		<div id="main_view" class="main_view">
 			<table cellSpacing=0 width="100%" class="content_view">
 				<tr>
-					<td><?=lang('title')?></td>
-					<td colspan="3"><input type="text" name="title" id="title" size="85" class="validate input-text" validtip="required"  value="<?=isset($view['title'])?$view['title']:'';?>"></td>
+					<td><?php echo '内容'?></td>
+					<td colspan="5">
+						<textarea type="text" name="content" id="title" class="validate input-text" validtip="required" cols="100" rows="5"><?=isset($view['content'])?$view['content']:'';?></textarea>
+					</td>
 				</tr>
 				<tr>
-					<td><?=lang('comments_description')?></td>
-					<td colspan="3"><textarea rows="5" cols="83" class="txtarea" name="description" id="description"><?=isset($view['description'])?$view['description']:'';?></textarea></td></tr>
-				<tr>
-					<td><?=lang('comments_reply')?></td>
-					<td colspan="5"><textarea style="width:668px;height:200px;" name="content" id="content" class="editor"><?=isset($view['content'])?htmlspecialchars($view['content']):'';?></textarea></td></tr>
-				<tr>
-					<td><?=lang('comments_createtime')?></td>
-					<td><input type="text" name="createtime" id="createtime" readOnly onClick="WdatePicker({doubleCalendar:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"  class="input-text Wdate" value="<?=isset($view['createtime'])?date('Y-m-d H:i:s',$view['createtime']):date('Y-m-d H:i:s')?>"></td>
-					<td><?=lang('comments_replytime')?></td>
-					<td><input type="text" name="replytime" id="replytime" readOnly onClick="WdatePicker({doubleCalendar:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"  class="input-text Wdate" value="<?=isset($view['replytime'])&&$view['replytime']>0?date('Y-m-d H:i:s',$view['replytime']):date('Y-m-d H:i:s')?>"></td>
+					<td><?='时间'?></td>
+					<td>
+						<input type="text" name="createtime" id="replytime" readOnly onClick="WdatePicker({doubleCalendar:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})"  class="input-text Wdate" value="<?=isset($view['createtime'])&&$view['createtime']>0?date('Y-m-d H:i:s',$view['createtime']):date('Y-m-d H:i:s')?>">
+					</td>
 				</tr>
 				<tr>
-					<td><?=lang('order')?></td>
-					<td><input type="text" name="listorder" id="listorder" value="<?php if(isset($view['listorder'])){echo $view['listorder'];}else{echo '999';} ?>" class="input-text"></td>
 					<td><?=lang('status')?></td>
 					<td colspan="3"><?=lang('comments_status1')?><input type="radio" name="status" value="1" <?php if(!isset($view['status'])||$view['status']==1){echo 'checked';} ?> /><?=lang('comments_status0')?><input type="radio" name="status" value="0" <?php if(isset($view['status'])&&$view['status']==0){echo 'checked';} ?>  /></td>
 				</tr>

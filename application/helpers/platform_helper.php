@@ -119,9 +119,9 @@ function dateSpan($span){
 	if($span < 60){
 		return $span.'秒';
 	}else if($span < 3600){
-		return ($span / 60).'分'.($span % 60).'秒';
+		return floor($span / 60).'分'.($span % 60).'秒';
 	}else if($span < 86400){
-		return ($span / 3600).'小时'.(($span % 3600) /60).'分';
+		return floor($span / 3600).'小时'.floor(($span % 3600) /60).'分';
 	}else{
 		return '大于1天';
 	}

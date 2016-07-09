@@ -16,7 +16,6 @@ class Article extends CI_Controller {
 		$this->editlang=$this->Lang_model->getEditLang();
 		$this->langurl = $this->Lang_model->loadLangUrl($this->editlang);
 		$this->categoryarr = mult_to_single($this->Data_model->getData(array('isdisabled'=>0,'lang'=>$this->editlang,'model'=>$this->tablefunc),'parent,listorder',0,0,'category'));
-		$this->recommendarr = $this->Data_model->getData(array('status'=>1,'model'=>$this->tablefunc,'lang'=>$this->editlang),'listorder',0,0,'recommend');
 	}
 	
 	public function index(){
@@ -158,7 +157,7 @@ class Article extends CI_Controller {
 			if($item['attachfile'] == ''){
 				$file = '无';
 			}else{
-				$file = '<a href="/'.$item['attachfile'].'">点击下载</a>';
+				$file = '<a href='.base_url('download/article/'.$item['id']).'>点击下载</a>';
 			}
 			$categorystr = isset($this->categoryarr[$item['category']])?'[<a href="'.site_url('category/'.$this->categoryarr[$item['category']]['dir']).$this->langurl.'" target="_blank"><font color="green">'.$this->categoryarr[$item['category']]['content'].'</font></a>]':'';
 			$newstr.='<tr id="tid_'.$item['id'].'">

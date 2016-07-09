@@ -131,7 +131,7 @@
 		<tr>
 			<td>附件</td>
 			<?php if(isset($view['attachfile'])):?>
-			<td><a href="<?php echo '/'.$view['attachfile']; ?>">点击下载</a></td>
+			<td><a href="<?php echo base_url('download/article/').$view['id']; ?>">点击下载</a></td>
 			<?php else:?>
 			<td>无</td>
 			<?php endif;?>

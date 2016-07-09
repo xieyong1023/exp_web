@@ -207,7 +207,44 @@ $(document).ready(function(){
 		$('.reply_person_name', new_attachReply).text(text[1]);
 		updateTime.text(text[3]);
 	}
-
+	
+	var apply = $(".apply_btn");
+	apply.click(function(){
+		var id = $(this).prev("#device_id").val();
+		$.ajax({
+			type: "POST",
+			url: "http://" + location.hostname + "/member/applyExp",
+			data: {
+				"id": id,
+			},
+			dataType: "json",
+			success: function(response){
+				if(response.status = "success"){
+					location.reload();
+				}else{
+					alert('当前设备已被占用');
+				}
+			},
+		});
+	});
+	
+	var free = $(".free_btn");
+	free.click(function(){
+		var id = $(this).prev("#device_id").val();
+		$.ajax({
+			type: "POST",
+			url: "http://" + location.hostname + "/member/releaseExp",
+			data: {
+				"id": id,
+			},
+			dataType: "json",
+			success: function(response){
+				if(response = "success"){
+					location.reload();
+				}
+			},
+		});	
+	});
 	//获得时间
 //	function getDateTime(){
 //		d = new Date();

@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Experiment_model extends CI_Model{
+	var $table = 'experiment';
 	
 	function __construct(){
 		parent::__construct();
@@ -7,7 +8,7 @@ class Experiment_model extends CI_Model{
 	
 	//所有实验项目
 	function loadAll(){
-		$this->db->select('experiment.id, article_id, user, experiment.status, ip, pass, article.title');
+		$this->db->select('experiment.id, article_id, user, experiment.status, ip, pass, name, article.title');
 		$this->db->from('experiment');
 		$this->db->join('article', 'article.id = experiment.article_id');
 		
@@ -40,7 +41,7 @@ class Experiment_model extends CI_Model{
 			);
 		}
 		
-		$this->db->select('experiment.id, article_id, user, experiment.status, ip, pass, article.title');
+		$this->db->select('experiment.id, article_id, user, experiment.status, ip, pass, name, article.title');
 		$this->db->from('experiment');
 		$this->db->join('article', 'article.id = experiment.article_id');
 		$this->db->where_in('experiment.id', $exp_id);
@@ -71,5 +72,11 @@ class Experiment_model extends CI_Model{
 		$exp_id = array_keys($exp);
 		
 		return count($exp_id);
+	}
+	
+	function getExpsByArticleId($articleId){
+		$this->db->where('article_id', $articleId);
+		$exps = $this->db->get($this->table)->result_array();
+		return $exps;
 	}
 }

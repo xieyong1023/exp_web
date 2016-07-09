@@ -3,7 +3,7 @@
 class Comments extends CI_Controller {
 	var $tablefunc = 'comments';
 	var $fields = array('category','title','description','content','listorder','status');
-	var $funcarr = array('order','del');
+	var $funcarr = array('del');
 	var $categoryarr,$recommendarr,$editlang;
 	function __construct(){
 		parent::__construct();
@@ -22,18 +22,18 @@ class Comments extends CI_Controller {
 		$this->Purview_model->checkPurview($this->tablefunc);
 		$post = $this->input->post(NULL,TRUE);
 		$getwhere = array();
-		$search['category'] = trim($post['category']);
-		$search['keyword'] = trim($post['keyword']);
-		$search['searchtype'] = trim($post['searchtype']);
+		$search['articleID'] = trim($post['articleID']);
+		$search['author'] = trim($post['author']);
+		$search['replytouser'] = trim($post['replytouser']);
 
-		if($search['searchtype']=='id'){
-			if($search['keyword']!=''){
-				$getwhere[$search['searchtype']]=$search['keyword'];
-			}
-		}else{
-			if($search['keyword']!=''){
-				$getwhere[$search['searchtype'].' like']='%'.$search['keyword'].'%';
-			}
+		if($search['articleID'] != ''){
+			$getwhere['articleID'] = $search['articleID'];
+		}
+		if($search['author'] != ''){
+			$getwhere['author'] = $search['author'];
+		}
+		if($search['replytouser'] != ''){
+			$getwhere['replytouser'] = $search['replytouser'];
 		}
 		$getwhere['lang'] = $this->editlang;
 		$pagearr=array(
@@ -41,7 +41,7 @@ class Comments extends CI_Controller {
 			'totalnum'=>$this->Data_model->getDataNum($getwhere),
 			'pagenum'=>20
 		);
-		$data = $this->Data_model->getData($getwhere,'listorder,id desc',$pagearr['pagenum'],($pagearr['currentpage']-1)*$pagearr['pagenum']);
+		$data = $this->Data_model->getData($getwhere,'createtime desc',$pagearr['pagenum'],($pagearr['currentpage']-1)*$pagearr['pagenum']);
 		$res = array(
 				'tpl'=>'list',
 				'tablefunc'=>$this->tablefunc,
@@ -53,37 +53,16 @@ class Comments extends CI_Controller {
 		);
 		$this->load->view($this->tablefunc,$res);
 	}
-	
-	public function add(){
-		$this->Purview_model->checkPurviewAjax($this->tablefunc,'add');
-		$post = $this->input->post(NULL,TRUE);
-		if($post['action']==site_aurl($this->tablefunc)){
-			$data = elements($this->fields,$post);
-			$data['createtime'] = human_to_unix($post['createtime']);
-			$data['replytime'] = human_to_unix($post['replytime']);
-			$data['uid'] = $this->session->userdata('uid');
-			$data['replyuid'] = $this->session->userdata('uid');
-			$data['lang'] = $this->editlang;
-			$id=$this->Data_model->addData($data);
-			show_jsonmsg(array('status'=>200,'remsg'=>$this->_setlist($this->Data_model->getSingle(array('id'=>$id)),false)));
-		}else{
-			$res = array(
-				'tpl'=>'view',
-				'tablefunc'=>$this->tablefunc,
-				'categoryarr'=>$this->categoryarr
-			);
-			show_jsonmsg(array('status'=>200,'remsg'=>$this->load->view($this->tablefunc,$res,true)));
-		}
-	}
 
 	public function edit(){
 		$this->Purview_model->checkPurviewAjax($this->tablefunc,'edit');
 		$post = $this->input->post(NULL,TRUE);
 		if($post['id']&&$post['action']==site_aurl($this->tablefunc)){
 			$data = elements($this->fields,$post);
-			$data['replytime'] = human_to_unix($post['replytime']);
+			$data['createtime'] = human_to_unix($post['createtime']);
 			$data['uid'] = $this->session->userdata('uid');
 			$data['replyuid'] = $this->session->userdata('uid');
+			$data['content'] = $post['content'];
 			$this->Data_model->editData(array('id'=>$post['id']),$data);
 			show_jsonmsg(array('status'=>200,'id'=>$post['id'],'remsg'=>$this->_setlist($this->Data_model->getSingle(array('id'=>$post['id'])),false)));
 		}else{
@@ -100,12 +79,6 @@ class Comments extends CI_Controller {
 				show_jsonmsg(array('status'=>203));
 			}
 		}
-	}
-	
-	public function order(){
-		$this->Purview_model->checkPurviewAjax($this->tablefunc,'order');
-		$data = $this->Data_model->listorder($this->input->post('ids',true),$this->input->post('listorder',true),'listorder');
-		show_jsonmsg(array('status'=>200,'remsg'=>$this->_setlist($data,true)));
 	}
 	
 	public function del(){
@@ -128,12 +101,14 @@ class Comments extends CI_Controller {
 		}
 		$newstr = '';
 		foreach($newdata as $key=>$item){
+			$article = $this->Data_model->getSingle(array('id' => $item['articleID']), 'article');
+			$content = $item['content'];
+			if(strlen($content) > 60){
+				$content = subString($content, 0, 60).'...';
+			}
 			$item['func'] = '';
 			if($this->Purview_model->checkPurviewFunc($this->tablefunc,'edit')){
 				$item['func'] .= $this->Purview_model->getSingleFunc(site_aurl($this->tablefunc.'/edit/'.$item['id']),'edit');
-			}
-			if($this->Purview_model->checkPurviewFunc($this->tablefunc,'order')){
-				$item['func'] .= $this->Purview_model->getSingleFunc(site_aurl($this->tablefunc.'/order'),'order');
 			}
 			if($this->Purview_model->checkPurviewFunc($this->tablefunc,'del')){
 				$item['func'] .=  $this->Purview_model->getSingleFunc(site_aurl($this->tablefunc.'/del/'.$item['id']),'sdel',$item['id']);	
@@ -141,11 +116,13 @@ class Comments extends CI_Controller {
 			$categorystr = isset($this->categoryarr[$item['category']])?'[<a href="'.site_url('category/'.$this->editlang.'/'.$this->categoryarr[$item['category']]['dir']).'" target="_blank"><font color="green">'.$this->categoryarr[$item['category']]['name'].'</font></a>]':'';
 			$newstr.='<tr id="tid_'.$item['id'].'">
 			<td width=30><input type=checkbox name="optid[]" value='.$item['id'].'></td>
-			<td width=50><input type="hidden" name="ids[]" value="'.$item['id'].'"><input type="text" name="listorder[]" class="input-order" size="3" value="'.$item['listorder'].'"></td>
 			<td width=40>'.$item['id'].'</td>
-			<td>'.$categorystr.$item['author'].'回复给'.$item['replytouser'].'</td>
-			<td width=350>'.subString($item['content'],0,80).'</td>
-			<td width=120>'.date('Y-m-d H:i:s',$item['createtime']).'</td>
+			<td width=50>'.$item['articleID'].'</td>
+			<td width=200>'.$article['title'].'</td>
+			<td>'.$content.'</td>
+			<td width=50>'.$item['author'].'</td>
+			<td width=50>'.$item['replytouser'].'</td>
+			<td width=150>'.date('Y-m-d H:i:s',$item['createtime']).'</td>
 			<td width=50 >'.lang('guestbook_status'.$item['status']).'</td>
 			<td width=50>'.$item['func'].'</td></tr>';
 		}

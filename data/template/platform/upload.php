@@ -28,12 +28,12 @@
 								<tr>
 									<td><label>请选择实验</label></td>
 									<td>
-										<select id="Exp" name="exp_name">
+										<select id="Exp" name="exp_id">
 											<?php 
 											$option = '';
 											$option .= '<option >请选择一项实验</option>';
 											foreach ($exp as $value){
-												$option .= '<option id='.$value['id'].'>';
+												$option .= '<option id='.$value['id'].' value='.$value['id'].'>';
 												$option .= $value['title'].'</option>';
 											}
 											echo $option;

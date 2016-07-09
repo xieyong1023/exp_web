@@ -895,3 +895,46 @@ body{
 	font-size:14px;
 	border-top: 1px solid #E2E2E2;
 }
+
+.device{
+	font-size: 14px;
+}
+
+.btn{
+	cursor:pointer;
+	background:#1D83DB;
+	color:#fff;
+	border:1px solid #1c6a9e;
+	padding:0 8px;
+	overflow:hidden;
+	height:24px;
+	margin:0 5px 0 0;
+	line-height:20px;
+}
+
+.btn:hover {
+	border-color:#3599DB;
+}
+
+.btn:active {
+	border-color:#1E71A8;
+}
+
+.btn_disable{
+	background: grey;
+}
+
+.status_red{
+	background-color: red;
+	border-radius: 3px;
+	color: white;!
+	display: inline-block;
+}
+
+.status_green{
+	background-color: green;
+	border-radius: 3px;
+	color: white;!
+	display: inline-block;
+	padding:2px 5px;
+}

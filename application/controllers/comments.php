@@ -81,7 +81,7 @@ class Comments extends CI_Controller{
 				'author' => $author,
 				'content' => $post['text'],
 				'createtime' => time(),
-				'status' => 1,
+				'status' => 0,
 				'articleID' => $post['articleID'],
 				'replytoID' => $post['replytoID'],
 				'replytouser' => $post['to'],

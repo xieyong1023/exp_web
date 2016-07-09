@@ -56,6 +56,9 @@ class Article extends CI_Controller{
 		//报告数
 		$countMyReports = $this->Member_model->countMyReports($user_detail['id']);
 		
+		//与之相关的实验设备
+		$exps = $this->Experiment_model->getExpsByArticleId($articleID);
+		
 		$res = array(
 			'config' => $this->siteConfig,
 			'menu' => $this->menu,
@@ -69,6 +72,7 @@ class Article extends CI_Controller{
 			'countMyExp' => $countMyExp,
 			'countFavorite' => $countFavorite,
 			'countMyReports' => $countMyReports,
+			'exps' => $exps,
 		);
 		
 		$this->load->view('platform/article', $res);

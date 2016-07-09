@@ -78,7 +78,7 @@ class Member extends CI_Controller
 			$user['lastip'] = $_SERVER["REMOTE_ADDR"];
 			$user['logincount'] = 0;
 			$user['studentID'] = $post['studentID'];
-				
+			$user['avatar'] = '/images/avatar/default.jpg';
 			$result = $this->Member_model->register($user);
 			echo json_encode($result);
 		}else{
@@ -630,6 +630,13 @@ class Member extends CI_Controller
 		$post = $this->input->post(NULL, TRUE);
 		
 		$this->db->where('id', $post['id']);
+		$exp = $this->db->get('experiment')->row_array();
+		if($exp['status'] == 1){
+			echo json_encode(array('status' => 'fail'));
+			exit;
+		}
+		
+		$this->db->where('id', $post['id']);
 		$this->db->update('experiment', array(
 				'status' => 1,
 				'user' => $user_name,
@@ -643,11 +650,10 @@ class Member extends CI_Controller
 		);
 		
 		$this->db->where('username', $user_name);
-		$this->db->insert('use', $use);
+		$this->db->insert('userecord', $use);
 		
 		$res = array(
 				'status' => 'success',
-				'user' => $user_name,
 		);
 		
 		echo json_encode($res);
@@ -675,14 +681,14 @@ class Member extends CI_Controller
 				'username' => $user_name,
 				'experiment_id' => $post['id'],
 		));
-		$time = $this->db->get('use')->row_array();
+		$time = $this->db->get('userecord')->row_array();
 		
 		$this->db->where(array(
 				'username' => $user_name,
 				'starttime =' => $time['starttime'],
 				'experiment_id' => $post['id'],
 		));
-		$this->db->update('use', array('endtime' => time()));
+		$this->db->update('userecord', array('endtime' => time()));
 	
 		echo json_encode("success");
 	}
@@ -734,14 +740,14 @@ class Member extends CI_Controller
 				'username' => $user_name,
 				'experiment_id' => $post['id'],
 		));
-		$time = $this->db->get('use')->row_array();
+		$time = $this->db->get('userecord')->row_array();
 		
 		$this->db->where(array(
 				'username' => $user_name,
 				'starttime =' => $time['starttime'],
 				'experiment_id' => $post['id'],
 		));
-		$this->db->update('use', array('endtime' => time()));
+		$this->db->update('userecord', array('endtime' => time()));
 		
 		echo "success";
 	}
@@ -846,7 +852,7 @@ class Member extends CI_Controller
 		}
 		
 		$post = $this->input->post(NULL, TRUE);
-		$status = $this->Member_model->saveReport($post['exp_name'], $user_name);
+		$status = $this->Member_model->saveReport($post['exp_id'], $user_name);
 		
 		$this->upload($status);
 	}

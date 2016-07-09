@@ -40,7 +40,7 @@
 						<?php if(!empty($article['attachfile'])):?>
 						<div id="attachfile">
 							<span>附件: </span>
-							<a href="<?php echo '/'.$article['attachfile']?>">点我下载附件</a>
+							<a href="<?php echo base_url('download/article/'.$article['id'])?>">点我下载附件</a>
 						</div>
 						<?php endif;?>
 						<div class="buttonBar">
@@ -48,13 +48,56 @@
 						</div>
 					</div>
 				</div>
+				<?php if(!empty($exps) && $login):?>
 				<div class="sep20"></div>
 				<div class="box">
-					<div class="cell"><span>实验设备</span><span id="exp_num"></span></div>
+					<div class="cell"><span>实验设备</span>(<?php echo count($exps)?>)</div>
+					<?php foreach ($exps as $exp):?>
+					<div class="cell device">
+						<table cellspacing="5">
+							<tbody>								
+								<tr>
+									<td>设备名称</td>
+									<td width="20"></td>
+									<td><?php echo $exp['name']?></td>
+								</tr>
+								<tr>
+									<td>状态</td>
+									<td width="20"></td>
+									<td>
+										<?php if($exp['status'] == 0):?>
+										<span id="<?php echo 'exp_'.$exp['id']?>" class="status_green">设备空闲</span>
+										<?php else:?>
+										<span id="<?php echo 'exp_'.$exp['id']?>" class="status_red">占用中...</span>
+										<?php endif;?>
+									</td>
+								</tr>
+									<td></td>
+									<td width="20"></td>
+									<td>
+										<input id="device_id" type="hidden" value="<?php echo $exp['id']?>" />
+										<?php if($exp['status'] == 0):?>										
+										<input type="button" value="申请使用"  class="btn apply_btn" />
+										<?php elseif($exp['status'] == 1):?>
+											<?php if($exp['user'] == $this->session->userdata('user_name')):?>
+											<input type="button" value="释放设备" class="btn free_btn" />
+											<span><?php echo '远程桌面IP地址:'.$exp['ip'].'  密码:'.$exp['pass']?></span>
+											<?php else:?>
+											<input type="button" value="申请使用"  class="btn apply_btn btn_disable" />
+											<?php echo '当前使用者: '.$exp['user'];?>
+											<?php endif;?>										
+										<?php endif;?>
+									</td>
+								<tr></tr>								
+							</tbody>
+						</table>
+					</div>
+					<?php endforeach;?>
 				</div>
+				<?php endif;?>
 				<div class="sep20"></div>
 				<div class="box">
-					<div class="cell"><span id="ReplyCount"><?php echo $article['comments']?></span> 回复  | 直到   <span id="UpdateTime"><?php echo $article['updatetime']?></span></div>		
+					<div class="cell"><span id="ReplyCount"><?php echo count($comments);?></span> 回复  | 直到   <span id="UpdateTime"><?php echo $article['updatetime']?></span></div>		
 					
 					<div class="cell reply reply_model hide">
 						<table width="100%">
