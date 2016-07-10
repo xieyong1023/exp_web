@@ -113,7 +113,7 @@ class Comments extends CI_Controller {
 			if($this->Purview_model->checkPurviewFunc($this->tablefunc,'del')){
 				$item['func'] .=  $this->Purview_model->getSingleFunc(site_aurl($this->tablefunc.'/del/'.$item['id']),'sdel',$item['id']);	
 			}
-			$categorystr = isset($this->categoryarr[$item['category']])?'[<a href="'.site_url('category/'.$this->editlang.'/'.$this->categoryarr[$item['category']]['dir']).'" target="_blank"><font color="green">'.$this->categoryarr[$item['category']]['name'].'</font></a>]':'';
+
 			$newstr.='<tr id="tid_'.$item['id'].'">
 			<td width=30><input type=checkbox name="optid[]" value='.$item['id'].'></td>
 			<td width=40>'.$item['id'].'</td>

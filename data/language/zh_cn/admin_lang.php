@@ -217,6 +217,7 @@ $lang['func_clearcache'] = '清除缓存';
 $lang['func_experiment'] = '设备管理';
 $lang['func_userecord'] = '使用记录';
 $lang['func_report'] = '实验报告';
+$lang['func_member'] = '用户管理';
 
 /*main_top*/
 $lang['welcome'] = '欢迎您！';

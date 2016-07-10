@@ -1,5 +1,5 @@
 @charset "utf-8";
-html, body, img, a img, form,ul,ol,li{margin:0; padding:0; border:none;_overflow-x:hidden;}
+html, body, img, a img, form,ul,ol,li{margin:0; padding:0; border:none;_overflow-x:scroll;}
 img{text-align:absmiddle; background-color:transparent}
 html, body, p, table,input,textarea,select{font: 12PX "Microsoft Yahei", Tahoma, Arial, Helvetica, STHeiti;}
 html,body,table,form{width:100%;padding:0;margin:0;}
@@ -161,4 +161,16 @@ body.rtl .formError .formErrorArrow {margin: -2px 13px 0 0;}
 .colorpicker{border-collapse: collapse;}
 .colorpicker td{border:1px solid #000000;}
 
+.login_n{
+	background-color: grey;
+	color: white;
+	padding: 2px 8px;
+	border-radius: 3px;
+}
 
+.login_y{
+	background-color: green;
+	color: white;
+	padding: 2px 8px;
+	border-radius: 3px;
+}

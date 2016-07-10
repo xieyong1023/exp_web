@@ -9,7 +9,7 @@
 						<span><?=lang('filter')?></span>
 						<input type="text" name="keyword" value="<?=$search['keyword']?>" class="input-text">
 						<select name="searchtype">
-							<option value="exp_name" <?php if ($search['searchtype'] == 'exp_name'): ?>selected<?php endif; ?>><?='实验名'?></option>
+							<option value="exp_name" <?php if ($search['searchtype'] == 'exp_name'): ?>selected<?php endif; ?>><?='设备名'?></option>
 							<option value="exp_id" <?php if ($search['searchtype'] == 'exp_id'): ?>selected<?php endif; ?>><?='设备ID'?></option>
 						</select>
 						<span>用户名</span><input type="text" name="user_name" value="<?php $search['user_name']?>" class="input-text" />

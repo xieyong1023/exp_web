@@ -7,17 +7,10 @@
 
 
 </script>
-
-
-
 <?php 
-
-
+$a = array('a', 'b', 'c');
+print_r($a);
+unset($a[0]);
+print_r($a);
 ?>
-<form action="<?php echo base_url('/member/exp_login')?>" method="post">
-<!-- <input type="text" name="user_name"/> -->
-<!-- <input type="text" name="user_pass"/> -->
-<!-- <input type="text" name="id"/> -->
-<!-- <input type="submit" value="提交"/> -->
-</form>
 </html>
