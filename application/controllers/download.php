@@ -21,6 +21,7 @@ class Download extends CI_Controller{
 			echo $file_path;
 			if(!file_exists($file_path)){
 				echo 'file not exist!';
+				exit;
 			}
 			$temp_arr = explode('/', $article['attachfile']);
 			$file_name = array_pop($temp_arr);
@@ -41,5 +42,47 @@ class Download extends CI_Controller{
 		}else{
 			show_404();
 		}
+	}
+	
+	public function report(){
+		$report_id = $this->uri->segment(3);
+		if(!is_numeric($report_id)){
+			show_404();
+		}
+		
+		$this->load->model('Data_model');
+		$report = $this->Data_model->getSingle(array('id' => $report_id), 'report');
+		$file_path = './report/'.$report['path'];
+		if(! file_exists($file_path)){
+			echo 'file not exist!';
+			exit;
+		}
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename="'.$report['file_name'].'"');
+		header('Cache-Control: must-revalidate');
+		header('Content-Length: ' . filesize($file_path));
+		ob_clean();//清空输出缓冲区,下载文件必须
+		flush();
+		readfile($file_path);
+	}
+	
+	//下载整个报告文件夹
+	public function reports()
+	{
+		$exp_id = $this->uri->segment(3);
+		if(!is_numeric($report_id)){
+			show_404();
+		}
+		$dir_path = './report/'.$exp_id;
+		if(!file_exists($dir_path)){
+			echo 'files not exits';
+			exit;
+		}
+		$this->load->model('Data_model');
+		$exp = $this->Data_model->getSingle(array('id' => $exp_id), 'experiment');
+		$this->load->library('zip');
+		$this->zip->read_dir($dir_path);
+		$this->zip->download($exp['name'].'_学生报告.zip');
 	}
 }
