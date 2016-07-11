@@ -2,6 +2,8 @@ $(document).ready(function(){
 	var user_name = $("#UserName");
 	var real_name = $("#RealName");
 	var studentID = $("#StudentID");
+	var school = $("#School");
+	var college = $("#College");
 	var department = $("#Department");
 	var email = $("#Email");
 	var tel = $("#Tel");
@@ -30,6 +32,8 @@ $(document).ready(function(){
 				"opt": "ajax",
 				"user_name": user_name.text(),
 				"real_name": real_name.val(),
+				"school": school.val(),
+				'college': college.val(),
 				"department": department.val(),
 				"studentID": studentID.val(),
 				"email": email.val(),
@@ -126,8 +130,8 @@ $(document).ready(function(){
 			url: "http://" + location.hostname + "/member/settings/newpass",
 			data: {
 				"opt": "ajax",
-				"current_pass": currentPass.val(),
-				"new_pass": newPass.val(),
+				"current_pass": $.md5(currentPass.val()),
+				"new_pass": $.md5(newPass.val()),
 			},
 			dataType: "json",
 			success: function(response){

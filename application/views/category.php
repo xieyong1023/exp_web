@@ -56,24 +56,7 @@
 					<a class="selectcolor colorpicker" onclick="colorpicker(this,'color','name')">&nbsp;</a>
 					<input type="hidden" name="color" id="color"  value="<?=isset($view['color'])?$view['color']:'';?>">
 				</td>
-				<td><?=lang('category_isexternal')?></td>
-				<td><?=lang('yes')?><input type="radio" name="isexternal" value="1" <?php if(isset($view['isexternal'])&&$view['isexternal']==1){echo 'checked';} ?> onclick="$('#externalurltr').show();" /><?=lang('no')?><input type="radio" name="isexternal" value="0" <?php if(!isset($view['isexternal'])||$view['isexternal']==0){echo 'checked';} ?>  onclick="$('#externalurltr').hide();"  /></td>
-				<td rowspan="6" class="upic" valign="top">
-					<img src="<?=isset($view['thumb'])&&$view['thumb']!=''?get_image_url($view['thumb']):get_image_url('data/nopic8080.gif')?>" onclick="uploadpic(this,'thumb')" width="150" id="imgthumb"><input type="hidden" name="thumb" id="thumb" value="<?=isset($view['thumb'])?$view['thumb']:'';?>"><br><input type="button" class="btn" onclick="unsetThumb('thumb','imgthumb')" value="<?=lang('unsetpic')?>">	
-				</td>
 			</tr>
-
-      	  	<?php if($this->Lang_model->getEditLang()=="zh_cn"):?>
-      	    <tr>
-          		<td><?=lang('category_nameen')?></td>
-          		<td colspan="3"><input type="text" name="nameen" id="nameen" class="input-text"   value="<?=isset($view['nameen'])?$view['nameen']:'';?>"  size="40"> </td>
-       		</tr>
-       		<?php endif;?>
-
-			<tr <?php if(!isset($view['isexternal'])||$view['isexternal']==0):?>style="display:none;"<?php endif;?> id="externalurltr">
-				<td><?=lang('category_externalurl')?></td>
-				<td colspan="3"><input type="text" name="externalurl" id="externalurl" size="80" class="input-text" value="<?=isset($view['externalurl'])?$view['externalurl']:'';?>"></td>
-			<tr>
 				<td><?=lang('category_dir')?></td>
 				<td><input type="text" name="dir" id="dir" class="validate input-text" validtip="required" value="<?=isset($view['dir'])?$view['dir']:'';?>"></td>
 				<td><?=lang('category_target')?></td>
@@ -101,29 +84,16 @@
 				<td><?=lang('category_isdisabled')?></td>
 				<td><?=lang('yes')?><input type="radio" name="isdisabled" value="0" <?php if(!isset($view['isdisabled'])||$view['isdisabled']==0){echo 'checked';} ?> /><?=lang('no')?><input type="radio" name="isdisabled" value="1" <?php if(isset($view['isdisabled'])&&$view['isdisabled']==1){echo 'checked';} ?>  /></td>
 			</tr>
-			<tr>
-				<td><?=lang('category_title')?></td>
-				<td colspan="3"><input type="text" name="title" id="title" size="80" class="input-text" value="<?=isset($view['title'])?$view['title']:'';?>"></td>
-			<tr>
-				<td><?=lang('category_keywords')?></td>
-				<td colspan="3"><input type="text" name="keywords" id="keywords" size="80" class="input-text" value="<?=isset($view['keywords'])?$view['keywords']:'';?>"></td>
-			<tr>
-				<td><?=lang('category_description')?></td><td colspan="3"><textarea rows="3" cols="79" name="description" id="description" class="txtarea"><?=isset($view['description'])?$view['description']:'';?></textarea></td></tr>
-			<tr>
-				<td><?=lang('content')?></td>
-				<td colspan="4"><textarea style="width:668px;height:300px;" name="content" id="content" class="editor"><?=isset($view['content'])?htmlspecialchars($view['content']):'';?></textarea></td></tr>
+
+				<td>目录提示</td>
+				<td><input type="text" name="content" id="content" class="validate input-text" validtip="required" value=<?=isset($view['content'])?htmlspecialchars($view['content']):'';?> /></td></tr>
 			<tr>
 			<tr>
 				<td><?=lang('category_pagesize')?></td>
 				<td >
 					<input type="text" name="pagesize" id="pagesize" size="5" class="input-text" value="<?=isset($view['pagesize'])?$view['pagesize']:'0';?>"></td>
-				<td><?=lang('category_tpllist')?></td>
-				<td colspan="2"><input type="text" name="tpllist" id="tpllist" class="input-text" value="<?=isset($view['tpllist'])?$view['tpllist']:'';?>"></td>
 			</tr>
 			<tr>
-				<td><?=lang('category_tpldetail')?></td>
-				<td>
-					<input type="text" name="tpldetail" id="tpldetail" class="input-text" value="<?=isset($view['tpldetail'])?$view['tpldetail']:'';?>"></td>
 				<td><?=lang('order')?></td>
 				<td colspan="2"><input type="text" name="listorder" id="listorder" value="<?php if(isset($view['listorder'])){echo $view['listorder'];}else{echo '99';} ?>" class="input-text" ></td>
 			</tr>

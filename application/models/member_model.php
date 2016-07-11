@@ -71,16 +71,15 @@ class Member_model extends CI_Model{
 			);
 			$this->session->set_userdata($session);
 			
-			if(trim($user['avatar']) == ''){
-				$avatar = '/images/avatar/default.jpg';
-			}
-			
 			//更新登陆状态
-			$this->db->where('username', $username);
-			$this->db->update('member', array(
+			$data = array(
 					'logined' => 1,
-					'avatar' => $avatar,
-			));
+			);
+			if(empty($user['avatar'])){
+				$data['avatar'] = '/images/avatar/default.jpg';
+			}
+			$this->db->where('username', $username);
+			$this->db->update('member', $data);			
 			
 			return $user['id'];
 		}else{

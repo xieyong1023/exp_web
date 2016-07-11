@@ -70,8 +70,9 @@ $(document).ready(function (){
 			data: {
 				"opt": "ajax",
 				"userName": userName.val(),
-				"userPass": userPass.val(),
+				"userPass": $.md5(userPass.val()),
 				"studentID": studentID.val(),
+				'v_code': $("#Verification").text(),
 			},
 			dataType: "json",
 			success: function(response){
@@ -158,7 +159,7 @@ $(document).ready(function (){
 					return true;
 			}break;
 			case "Verification":{
-				if(obj.val() != $("#Vcode").text())
+				if(obj.val().toLowerCase() != $("#Vcode").text().toLowerCase())
 					showWarning(obj, "验证码错了!");
 				else 
 					return true;

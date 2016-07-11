@@ -1,5 +1,6 @@
 <?php $this->load->view('platform/head');?>
 <body>
+	<script type="text/javascript" src="<?php echo $config['site_templateurl'].'/js/md5.js';?>"></script>
 	<script type="text/javascript" src="<?php echo $config['site_templateurl'].'/js/login.js';?>"></script>
 
 	<?php $this->load->view('platform/top')?>

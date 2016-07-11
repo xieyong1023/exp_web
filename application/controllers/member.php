@@ -67,8 +67,13 @@ class Member extends CI_Controller
 	//处理注册请求
 	public function register(){
 		$post = $this->input->post(NULL,TRUE);
-		if($post['opt'] == 'ajax'){			
-			$user = array();
+		if($post['opt'] == 'ajax'){	
+			$cookie = get_cookie('v_code');
+			if(! strcasecmp($cookie, $post['v_code'])){
+				echo json_encode('false');
+				exit;
+			}
+			
 			$user['username'] = $post['userName'];
 			$user['salt'] = random_string('alnum', 6);
 			$user['password'] = md5pass($post['userPass'], $user['salt']);
@@ -176,6 +181,8 @@ class Member extends CI_Controller
 			$data = array(
 					'realname' => $post['real_name'],
 					'studentID' => $post['studentID'],
+					'school' => $post['school'],
+					'college' => $post['college'],
 					'department' => $post['department'],
 					'email' => $post['email'],
 					'tel' => $post['tel'],
@@ -296,7 +303,14 @@ class Member extends CI_Controller
 	public function generateVcode(){
 		$post = $this->input->post("vcode");
 		if(isset($post) && $post == "vcode"){
-			echo json_encode(getRandChar(4));
+			$code = getRandChar(4);
+			$cookie = array(
+					'name' => 'v_code',
+					'value' => $code,
+					'expire' => '60',
+			);
+			set_cookie($cookie);
+			echo json_encode($code);
 		}else{
 			show_404();
 		}

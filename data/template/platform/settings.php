@@ -1,5 +1,6 @@
 <?php $this->load->view('platform/head');?>
 <body>
+	<script type="text/javascript" src="<?php echo $config['site_templateurl'].'/js/md5.js';?>"></script>
 	<script type="text/javascript" src="<?php echo $config['site_templateurl'].'/js/settings.js';?>"></script>
 
 	<?php $this->load->view('platform/top')?>
@@ -24,7 +25,7 @@
 								</tr>
 								<tr>
 									<td><label for="StudentID">学号</label>
-									<td><p id="UserName" class="piece"><?php echo $detail['studentID'];?></p></td>
+									<td><input id="StudentID" type="text" value="<?php echo $detail['studentID']?>" /></td>
 									<td class="msgTip"></td>
 								</tr>
 								<tr>
@@ -33,17 +34,27 @@
 									<td class="msgTip"></td>
 								</tr>
 								<tr>
+									<td><label for="School">学校</label>
+									<td><input id="School" type="text" value="<?php echo $detail['school']?>" /></td>
+									<td class="msgTip"></td>
+								</tr>
+								<tr>
+									<td><label for="College">院系</label>
+									<td><input id="College" type="text" value="<?php echo $detail['college']?>" /></td>
+									<td class="msgTip"></td>
+								</tr>
+								<tr>
 									<td><label for="Department">专业</label>
 									<td><input id="Department" type="text" value="<?php echo $detail['department']?>" /></td>
 									<td class="msgTip"></td>
 								</tr>
 								<tr>
-									<td><label for="Email">邮箱</label>
+									<td><label for="Email">email</label>
 									<td><input id="Email" type="text" value="<?php echo $detail['email'];?>" /></td>
 									<td class="msgTip"></td>
 								</tr>
 								<tr>
-									<td><label for="Tel">电话</label>
+									<td><label for="Tel">联系电话</label>
 									<td><input id="Tel" type="text" value="<?php echo $detail['tel']?>" /></td>
 									<td class="msgTip"></td>
 								</tr>

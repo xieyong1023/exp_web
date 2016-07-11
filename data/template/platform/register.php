@@ -1,7 +1,7 @@
 <?php $this->load->view('platform/head');?>
 
+<script type="text/javascript" src="<?php echo $config['site_templateurl'].'/js/md5.js';?>"></script>
 <script type="text/javascript" src="<?php echo $config['site_templateurl'].'/js/register.js';?>"></script>
-
 <body>
 	<?php $this->load->view('platform/top')?>
 	
@@ -44,7 +44,7 @@
 										<input id="Verification" type="text" name="Verification"/ >
 										<div id="Vcode" class="no-select" title="点击刷新"></div>
 									</td>
-									<td class="msgTip"></td>
+									<td class="msgTip">不区分大小写</td>
 								</tr>
 								<tr>
 									<td><label></label></td>

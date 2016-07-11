@@ -59,8 +59,6 @@ class Report extends CI_Controller {
 		$ids = $this->input->post('optid',true);
 		if($ids){
 			$this->Data_model->delData($ids);
-			$this->Cache_model->deleteSome($this->tablefunc.'_'.$this->editlang);
-			$this->Cache_model->deleteSome('recommend_'.$this->editlang.'_'.$this->tablefunc);
 			show_jsonmsg(array('status'=>200,'remsg'=>lang('delok'),'ids'=>$ids));
 		}else{
 			show_jsonmsg(array('status'=>203));

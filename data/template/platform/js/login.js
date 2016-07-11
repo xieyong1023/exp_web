@@ -42,7 +42,7 @@ $(document).ready(function(){
 			data: {
 				"opt": "ajax",
 				"user_name": user_name.val(),
-				"user_pass": user_pass.val(),
+				"user_pass": $.md5(user_pass.val()),
 				"autoLogin": autoLogin.is(':checked'),  //如果选中则为true,否则为false
 			},
 			dataType: "json",
