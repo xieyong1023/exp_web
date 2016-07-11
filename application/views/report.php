@@ -51,12 +51,6 @@
 				<td>
 					<div class="func"><?php if (isset($funcstr)): ?><?=$funcstr?><?php endif; ?></div>
 				</td>
-				<td width="20"></td>
-				<td>
-					<form action="<?php echo base_url('download/reports')?>">
-					<input type="button" class="btn" value="打包下载实验报告" />
-					</form>
-				</td>
 				<td align="right">
 					<div class="page"><?php if (isset($pagestr)): ?><?=$pagestr?><?php endif; ?></div>
 				</td>
