@@ -6,7 +6,7 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/deleteReport",
+			url: "http://" + location.hostname + "/index.php/member/deleteReport",
 			data: {
 				"id": id,
 			},

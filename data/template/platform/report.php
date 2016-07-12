@@ -11,7 +11,7 @@
 					<div id="Header">
 						<a href="<?php echo base_url();?>">首页</a>
 						<span class="chevron"> › </span>
-						<a href="<?php echo base_url('member/p/'.$user_detail['username']);?>"><?php echo $user_detail['username']?></a>
+						<a href="<?php echo site_url('member/p/'.$user_detail['username']);?>"><?php echo $user_detail['username']?></a>
 						<span class="chevron"> › </span>
 						<span class="black">我的实验报告</span>
 					</div>
@@ -20,14 +20,14 @@
 						$abc = '';
 						foreach ($report as $value){
 							$abc .= '
-					<div class="cell leftList" id="'.$value['exp_id'].'">
+					<div class="cell leftList" id="'.$value['id'].'">
 						<table width="100%">
 							<tbody>
 								<tr>
 									<td>
-										<span class="title">实验名: <a href="'.base_url('article/'.$value['article_id']).'">'.$value['exp_name'].'</a></span>
+										<span class="title">实验名: <a href="'.site_url('article/'.$value['article_id']).'" target="_blank">'.$value['exp_name'].'</a></span>
 										<div class="sep5"></div>
-										<span class="title">实验报告: <a  charset="gbk" href="/report/'.$value['path'].'" target="_blank">'.$value['file_name'].'</a></span>
+										<span class="title">下载实验报告: <a href="'.site_url('download/report/'.$value['id']).'">'.$value['file_name'].'</a></span>
 										<div class="sep5"></div>
 										<span class="fade">上传时间'.$value['createtime'].'</span>										
 									</td>';								

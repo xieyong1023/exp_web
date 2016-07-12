@@ -12,7 +12,7 @@
 					<div id="Header">
 						<a href="<?php echo base_url();?>">首页</a>
 						<span class="chevron"> › </span>
-						<a href="<?php echo base_url('member/p/'.$user_detail['username']);?>"><?php echo $user_detail['username']?></a>
+						<a href="<?php echo site_url('member/p/'.$user_detail['username']);?>"><?php echo $user_detail['username']?></a>
 						<span class="chevron"> › </span>
 						<span class="black">上传实验报告</span>
 					</div>
@@ -22,7 +22,7 @@
 					}
 					?>
 					<div class="form">
-						<form enctype="multipart/form-data" action="<?php echo base_url('member/saveReport');?>" method="post">
+						<form enctype="multipart/form-data" action="<?php echo site_url('member/saveReport');?>" method="post">
 						<table>
 							<tbody>
 								<tr>

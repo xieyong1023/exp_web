@@ -66,7 +66,7 @@ $(document).ready(function (){
 	function register(){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/register",
+			url: "http://" + location.hostname + "/index.php/member/register",
 			data: {
 				"opt": "ajax",
 				"userName": userName.val(),
@@ -178,7 +178,7 @@ $(document).ready(function (){
 		$.ajax({
 			type: "POST",
 			async: false,    //此处为同步通信!
-			url: "http://" + location.hostname + "/member/isExist",
+			url: "http://" + location.hostname + "/index.php/member/isExist",
 			data: {"opt":"ajax", "item":item, "value":value},
 			dataType: "json",
 			success: function(response){
@@ -233,7 +233,7 @@ $(document).ready(function (){
 	function setVcode(){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/generateVcode",
+			url: "http://" + location.hostname + "/index.php/member/generateVcode",
 			data: {"vcode": "vcode"},
 			dataType: "json",
 			success: function(response){

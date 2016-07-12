@@ -135,13 +135,14 @@ class Experiment extends CI_Controller
 			if(empty($article))
 			{
 				$article['title'] = '';
+				$article['id'] = '';
 			}
 			$newstr.='<tr id="tid_'.$item['id'].'">
 			<td width="30"><input type=checkbox name="optid[]" value='.$item['id'].'></td>
 			<td width="40">'.$item['id'].'</td>
 			<td width="300">'.$item['name'].'</td>
 			<td width="40">'.$item['article_id'].'</td>
-			<td>'.$article['title'].'</td>
+			<td><a href="'.site_url('article/'.$article['id']).'" target="_blank">'.$article['title'].'</a></td>
 			<td width="120">'.$item['ip'].'</td>
 			<td width="50">'.$item['pass'].'</td>
 			<td width="100">'.$item['user'].'</td>

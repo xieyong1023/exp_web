@@ -38,7 +38,7 @@ $(document).ready(function(){
 	function login(){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/ajaxLogin",
+			url: "http://" + location.hostname + "/index.php/member/ajaxLogin",
 			data: {
 				"opt": "ajax",
 				"user_name": user_name.val(),
@@ -87,7 +87,7 @@ $(document).ready(function(){
 	function setVcode(){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/generateVcode",
+			url: "http://" + location.hostname + "/index.php/member/generateVcode",
 			data: {"vcode": "vcode"},
 			dataType: "json",
 			success: function(response){

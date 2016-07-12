@@ -19,7 +19,7 @@
 							}else{
 								$content .= 'nav_a"';
 							}
-							$content .= ' href='.base_url('category/'.$value['dir']);
+							$content .= ' href='.site_url('category/'.$value['dir']);
 							$content .= ' target='.$value['target'].'>';
 							$content .= $value['name'].'</a>';
 						}
@@ -31,7 +31,7 @@
 						$content = '';
 						foreach ($menu['tree'][$menu['dir']] as $value){
 							$content .= '<a class="nav_b"';
-							$content .= ' href='.base_url('category/'.$value['dir']);
+							$content .= ' href='.site_url('category/'.$value['dir']);
 							$content .= ' target='.$value['target'].'>';
 							$content .= $value['name'].'</a>';
 						}
@@ -70,26 +70,26 @@
 									</td>
 									<td width="10"></td>
 									<td>
-										<span class="title"><a href="'.base_url($value['category']['model'].'/'.$value['id']).'">'.$value['title'].'</a></span>
+										<span class="title"><a href="'.site_url($value['category']['model'].'/'.$value['id']).'">'.$value['title'].'</a></span>
 										<div class="sep5"></div>
-										<span class="node"><a href="'.base_url('category/'.$value['category']['dir']).'">'.$value['category']['name'].'</a></span>
+										<span class="node"><a href="'.site_url('category/'.$value['category']['dir']).'">'.$value['category']['name'].'</a></span>
 										<span class="dot">•</span>
 										<span class="fade">来自于</span>
-										<strong class="highLight"><a href="'.base_url('member/p/'.$value['username']).'">'.$value['username'].'</a></strong>
+										<strong class="highLight"><a href="'.site_url('member/p/'.$value['username']).'">'.$value['username'].'</a></strong>
 										<span class="dot">•</span>
 										<span class="fade">'.$value['puttime'].'</span>';										
 										if($value['lastreply'] != ''){
 											$abc .= '
 										<span class="dot">•</span>
 										<span class="fade">最后回复来自</span>
-										<strong class="highLight"><a href="'.base_url('member/p/'.$value['lastreply']).'">'.$value['lastreply'].'</a></strong>';
+										<strong class="highLight"><a href="'.site_url('member/p/'.$value['lastreply']).'">'.$value['lastreply'].'</a></strong>';
 										}
 										
 									$abc .= 
 									'</td>
 									<td width="10"></td>
 									<td width="50">
-										<a href="'.base_url($value['category']['model'].'/'.$value['id']).'" class="reply_count">'.$value['comments'].'</a>
+										<a href="'.site_url($value['category']['model'].'/'.$value['id']).'" class="reply_count">'.$value['comments'].'</a>
 									</td>
 								</tr>
 							</tbody>
@@ -122,7 +122,7 @@
 									if(index > <?php echo $setPage['pageNum'];?>){
 										index = <?php echo $setPage['pageNum'];?>;
 									}
-									location.pathname = '<?php echo $menu['controller'].$paging['dir'];?>'+"/"+index;
+									location.href = 'http://' + location.hostname + '/index.php/' + '<?php echo $menu['controller'].$paging['dir'];?>'+"/"+index;
 								});
 
 								$("#SkipNum").keypress(function(event){

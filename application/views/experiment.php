@@ -73,13 +73,13 @@
 			<tr>
 				<td>远程桌面IP地址</td>
 				<td colspan="8">
-					<input type="text" name="ip" id="ip" class="validate input-text" size="60" validtip="required" value="<?=isset($view['ip'])?$view['ip']:'';?>"/>
+					<input type="text" name="ip" id="ip" class="input-text" size="60" value="<?=isset($view['ip'])?$view['ip']:'';?>"/>
 				</td>
 			</tr>
 			<tr>
 				<td>密码</td>
 				<td colspan="8">
-					<input type="text" name="pass" id="pass" class="validate input-text" size="60" validtip="required" value="<?=isset($view['pass'])?$view['pass']:'';?>"/>
+					<input type="text" name="pass" id="pass" class="input-text" size="60" value="<?=isset($view['pass'])?$view['pass']:'';?>"/>
 				</td>
 			</tr>
 			<tr>

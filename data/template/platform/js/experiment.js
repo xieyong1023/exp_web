@@ -4,7 +4,7 @@ $(document).ready(function(){
 		var id = $(this).prev("#device_id").val();
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/applyExp",
+			url: "http://" + location.hostname + "/index.php/member/applyExp",
 			data: {
 				"id": id,
 			},
@@ -24,7 +24,7 @@ $(document).ready(function(){
 		var id = $(this).prev("#device_id").val();
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/releaseExp",
+			url: "http://" + location.hostname + "/index.php/member/releaseExp",
 			data: {
 				"id": id,
 			},

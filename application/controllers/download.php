@@ -52,7 +52,7 @@ class Download extends CI_Controller{
 		
 		$this->load->model('Data_model');
 		$report = $this->Data_model->getSingle(array('id' => $report_id), 'report');
-		$file_path = './report/'.$report['path'];
+		$file_path = './data/report/'.$report['path'];
 		if(! file_exists($file_path)){
 			echo 'file not exist!';
 			exit;
@@ -74,7 +74,7 @@ class Download extends CI_Controller{
 		if(!is_numeric($exp_id)){
 			show_404();
 		}
-		$dir_path = './report/'.$exp_id.'/';
+		$dir_path = './data/report/'.$exp_id.'/';
 		if(!file_exists($dir_path)){
 			echo 'files not exits';
 			exit;
@@ -84,7 +84,7 @@ class Download extends CI_Controller{
 		if(!empty($reports)){
 			$this->load->library('zip');
 			foreach ($reports as $report){
-				$file_path = './report/'.$report['path'];
+				$file_path = './data/report/'.$report['path'];
 				if(!file_exists($file_path)){
 					continue;
 				}

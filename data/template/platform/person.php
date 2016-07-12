@@ -48,19 +48,19 @@
 							<tbody>
 								<tr>
 									<td>
-										<span class="title"><a href="'.base_url($value['category']['model'].'/'.$value['id']).'">'.$value['title'].'</a></span>
+										<span class="title"><a href="'.site_url($value['category']['model'].'/'.$value['id']).'">'.$value['title'].'</a></span>
 										<div class="sep5"></div>
-										<span class="node"><a href="'.base_url('category/'.$value['category']['dir']).'">'.$value['category']['name'].'</a></span>
+										<span class="node"><a href="'.site_url('category/'.$value['category']['dir']).'">'.$value['category']['name'].'</a></span>
 										<span class="dot">•</span>
 										<span class="fade">来自于</span>
-										<strong class="highLight"><a href="'.base_url('member/p/'.$value['username']).'">'.$value['username'].'</a></strong>
+										<strong class="highLight"><a href="'.site_url('member/p/'.$value['username']).'">'.$value['username'].'</a></strong>
 										<span class="dot">•</span>
 										<span class="fade">'.$value['puttime'].'</span>';										
 										if($value['lastreply'] != ''){
 											$abc .= '
 										<span class="dot">•</span>
 										<span class="fade">最后回复来自</span>
-										<strong class="highLight"><a href="'.base_url('member/p/'.$value['lastreply']).'">'.$value['lastreply'].'</a></strong>';
+										<strong class="highLight"><a href="'.site_url('member/p/'.$value['lastreply']).'">'.$value['lastreply'].'</a></strong>';
 										}
 										
 									$abc .= 
@@ -80,7 +80,7 @@
 					?>
 					<div class="cell">
 						<span class="chevron">»</span>
-						<a href="<?php echo base_url('/member/p/'.$user_detail['username'].'/topics')?>"><?php echo $user_detail['username']?>创建的所有主题</a>
+						<a href="<?php echo site_url('/member/p/'.$user_detail['username'].'/topics')?>"><?php echo $user_detail['username']?>创建的所有主题</a>
 					</div>
 				</div>
 				<div class="sep20"></div>
@@ -93,7 +93,7 @@
 						foreach ($comments as $value){
 							$str .= 
 					'<div class="blue">
-						<span class="replyto">回复了 '.$value['replytouser'].' 创建的主题 › <a href="'.base_url('/article/'.$value['articleID']).'">'.$value['title'].'</a></span>
+						<span class="replyto">回复了 '.$value['replytouser'].' 创建的主题 › <a href="'.site_url('/article/'.$value['articleID']).'">'.$value['title'].'</a></span>
 						<span class="replytime">'.$value['createtime'].'</span>
 					</div>
 					<div class="arrow">
@@ -110,7 +110,7 @@
 					?>					
 					<div class="cell">
 						<span class="chevron">»</span>
-						<a href="<?php echo base_url('member/p/'.$user_detail['username'].'/replies')?>"><?php echo $user_detail['username']?>的所有回复</a>
+						<a href="<?php echo site_url('member/p/'.$user_detail['username'].'/replies')?>"><?php echo $user_detail['username']?>的所有回复</a>
 					</div>
 				</div>
 			</div>

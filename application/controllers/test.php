@@ -38,8 +38,8 @@ class Test extends CI_Controller
 		
 
 		$this->load->view($config['site_template'].'/test', $res);
-// 		$a = md5pass("123456", "VHCSR1");
-// 		echo $a;
+		$data = $this->Data_model->getSingle(array('username' => '谢勇'), 'member');
+		print_r($config['site_templateurl']);
 	}
 }
 ?>

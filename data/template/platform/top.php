@@ -13,14 +13,14 @@
 					$user_name = $this->session->userdata("user_name");
 					$topButton = '';
 					if($user_name === false){
-						$topButton .= '<div class="topButton"><a href="'.base_url('member/login').'">登陆</a></div>';
-						$topButton .= '<div class="topButton"><a href="'.base_url('member/signup').'">注册</a></div>';
+						$topButton .= '<div class="topButton"><a href="'.site_url('member/login').'">登陆</a></div>';
+						$topButton .= '<div class="topButton"><a href="'.site_url('member/signup').'">注册</a></div>';
 						echo $topButton;
 						
 					}else{
-						$topButton .= '<div class="topButton"><a href="'.base_url('member/logout').'">登出</a></div>';
-						$topButton .= '<div class="topButton"><a href="'.base_url('member/settings').'">设置</a></div>';
-						$topButton .= '<div class="topButton"><a href="'.base_url('member/p/'.$user_name).'">'.$user_name.'</a></div>';
+						$topButton .= '<div class="topButton"><a href="'.site_url('member/logout').'">登出</a></div>';
+						$topButton .= '<div class="topButton"><a href="'.site_url('member/settings').'">设置</a></div>';
+						$topButton .= '<div class="topButton"><a href="'.site_url('member/p/'.$user_name).'">'.$user_name.'</a></div>';
 						echo $topButton;
 					}
 					unset($needLogin);

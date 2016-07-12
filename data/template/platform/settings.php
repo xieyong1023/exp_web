@@ -11,9 +11,9 @@
 			<div id="MainBox">
 				<div class="box">
 					<div id="Header">
-						<a href="<?php echo base_url();?>">首页</a>
+						<a href="<?php echo site_url();?>">首页</a>
 						<span class="chevron"> › </span>
-						<a href="<?php echo base_url('member/settings');?>">设置</a>
+						<a href="<?php echo site_url('member/settings');?>">设置</a>
 					</div>
 					<div class="form">
 						<table>

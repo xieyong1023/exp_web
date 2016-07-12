@@ -11,7 +11,7 @@ $(document).ready(function(){
         var form_data = new FormData(document.getElementById('upload_file'));        
         xhr.upload.addEventListener('progress', upload_progress, false);
         xhr.responseType = 'json';
-        xhr.open("POST", "http://" + location.hostname + '/admin/article/upload_file');
+        xhr.open("POST", "http://" + location.hostname + '/index.php/admin/article/upload_file');
         xhr.onload = function(){
             if(xhr.status == 200){
             	var data = xhr.response;

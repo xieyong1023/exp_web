@@ -19,9 +19,9 @@
 				<tr>
 					<th width=30  align="left"><input type="checkbox" onclick="checkAll(this)"></th>
 					<th width=40  align="left"><?=lang('id')?></th>
-					<th align="left"><?='用户名'?></th>
+					<th width=100 align="left"><?='用户名'?></th>
 					<th width=40  align="left"><?php echo '设备ID'?></th>
-					<th width=200 align="left"><?php echo '设备名'?></th>
+					<th align="left"><?php echo '设备名'?></th>
 					<th width=150 align="left"><?php echo '开始时间'?></th>
 					<th width=150 align="left"><?php echo '结束时间'?></th>
 					<th width=80  align="left"><?php echo '使用时间'?></th>

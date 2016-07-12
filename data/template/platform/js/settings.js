@@ -27,7 +27,7 @@ $(document).ready(function(){
 	function submitSettings(){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/saveSettings",
+			url: "http://" + location.hostname + "/index.php/member/saveSettings",
 			data: {
 				"opt": "ajax",
 				"user_name": user_name.text(),
@@ -93,7 +93,7 @@ $(document).ready(function(){
 	 */
 	var changeAvatar = $("#ChangeAvatar");
 	changeAvatar.click(function(){
-		location.href = 'http://' + location.hostname + '/member/settings/avatar';
+		location.href = 'http://' + location.hostname + '/index.php/member/settings/avatar';
 	});
 	
 	/*
@@ -127,7 +127,7 @@ $(document).ready(function(){
 	function submitPass(){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/settings/newpass",
+			url: "http://" + location.hostname + "/index.php/member/settings/newpass",
 			data: {
 				"opt": "ajax",
 				"current_pass": $.md5(currentPass.val()),

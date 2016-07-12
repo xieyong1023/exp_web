@@ -70,13 +70,13 @@ function setPaging($dir, $current, $sum, $pageSize){
 	}
 	
 	$content = '';
-	$content .= creatPagingButton('首页', base_url($dir));
-	$content .= creatPagingButton('上一页', base_url($dir.'/'.$pre));
+	$content .= creatPagingButton('首页', site_url($dir));
+	$content .= creatPagingButton('上一页', site_url($dir.'/'.$pre));
 	for($i = $min; $i <= $max; $i++){
-		$content .= creatPagingButton($i, base_url($dir.'/'.$i), true);
+		$content .= creatPagingButton($i, site_url($dir.'/'.$i), true);
 	}
-	$content .= creatPagingButton('下一页', base_url($dir.'/'.$next));
-	$content .= creatPagingButton('尾页', base_url($dir.'/'.$pageNum));
+	$content .= creatPagingButton('下一页', site_url($dir.'/'.$next));
+	$content .= creatPagingButton('尾页', site_url($dir.'/'.$pageNum));
 
 	return array(
 		'content' => $content,

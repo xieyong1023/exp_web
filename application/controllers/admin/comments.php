@@ -102,6 +102,9 @@ class Comments extends CI_Controller {
 		$newstr = '';
 		foreach($newdata as $key=>$item){
 			$article = $this->Data_model->getSingle(array('id' => $item['articleID']), 'article');
+			if(empty($article['title'])){
+			    $article['title'] = '';
+			}
 			$content = $item['content'];
 			if(strlen($content) > 60){
 				$content = subString($content, 0, 60).'...';

@@ -6,13 +6,13 @@
 						<tbody>
 							<tr>
 								<td align="center" width="32" valian="middle">
-									<a href="'.base_url('member/p/'.$value['username']).'">
+									<a href="'.site_url('member/p/'.$value['username']).'">
 										<img class="small" src="'.$config['site_templateurl'].$value['avatar'].'"/>
 									</a>
 								</td>
 								<td width="10"></td>
 								<td width="auto" valian="middle">
-									<a href="'.base_url('article/'.$value['id']).'">
+									<a href="'.site_url('article/'.$value['id']).'">
 										<span class="big">'.$value['title'].'</span>
 									</a>
 								</td>

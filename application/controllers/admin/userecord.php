@@ -78,18 +78,23 @@ class Userecord extends CI_Controller
 				$experiment['name'] = '设备已失效';
 			}
 			$span = dateSpan($item['endtime'] - $item['starttime']);
-			if($item['endtime'] == 0){
-				$endtime = '使用中...';
-			}else{
+			if(is_numeric($item['endtime'])){				
 				$endtime = date("Y-m-d H:i:s", $item['endtime']);
-			}			
+			}else{
+			    $endtime = '使用中...';
+			}	
+			if(is_numeric($item['starttime'])){
+			    $starttime = date("Y-m-d H:i:s", $item['starttime']);
+			}else{
+			    $starttime = '无数据';
+			}
 			$newstr.='<tr id="tid_'.$item['id'].'">
 			<td width="30"><input type=checkbox name="optid[]" value='.$item['id'].'></td>
 			<td width="40">'.$item['id'].'</td>
-			<td>'.$item['username'].'</td>
+			<td width="100">'.$item['username'].'</td>
 			<td width="40">'.$item['experiment_id'].'</td>
-			<td width="200">'.$experiment['name'].'</td>
-			<td width="150">'.date("Y-m-d H:i:s", $item['starttime']).'</td>
+			<td>'.$experiment['name'].'</td>
+			<td width="150">'.$starttime.'</td>
 			<td width="150">'.$endtime.'</td>
 			<td width="80">'.$span.'</td>
 			<td width="50">'.$item['func'].'</td></tr>';

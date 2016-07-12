@@ -12,11 +12,11 @@
 					<div id="Header">
 						<a href="<?php echo base_url();?>">首页</a>
 						<span class="chevron"> › </span>
-						<a href="<?php echo base_url('member/p/'.$user_detail['username']);?>"><?php echo $user_detail['username']?></a>
+						<a href="<?php echo site_url('member/p/'.$user_detail['username']);?>"><?php echo $user_detail['username']?></a>
 						<span class="chevron"> › </span>
 						<span class="black">编辑新的主题</span>
 					</div>
-					<form action="<? echo base_url('member/newArticle')?>" enctype="multipart/form-data" method="post">
+					<form action="<?php echo site_url('member/newArticle')?>" enctype="multipart/form-data" method="post">
 						<div class="cell black">
 							<span>标题</span>
 							<span class="remaining fade">120</span>

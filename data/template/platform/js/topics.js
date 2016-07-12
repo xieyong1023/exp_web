@@ -3,14 +3,14 @@ $(document).ready(function(){
 		var $this = $(this);
 		
 		var url = $this.parents(".leftList").find(".title a").attr('href');
-		var id = url.split('/')[4];
+		var id = url.split('/').pop();
 		
 		var category = $("#Category").val();
 		
 		if(category == "收藏列表"){
 			$.ajax({
 				type: "POST",
-				url: "http://" + location.hostname + "/member/deleteFavorite",
+				url: "http://" + location.hostname + "/index.php/member/deleteFavorite",
 				data: {
 					'id': id,
 				},
@@ -29,7 +29,7 @@ $(document).ready(function(){
 		if(category == "全部主题"){			
 			$.ajax({
 				type: "POST",
-				url: "http://" + location.hostname + "/member/deleteArticle",
+				url: "http://" + location.hostname + "/index.php/member/deleteArticle",
 				data: {
 					'id': id,
 				},

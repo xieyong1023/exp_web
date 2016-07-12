@@ -42,7 +42,7 @@ class Report extends CI_Controller {
 			'totalnum'=>$this->Data_model->getDataNum($getwhere),
 			'pagenum'=>20
 		);
-		$data = $this->Data_model->getData($getwhere,'',$pagearr['pagenum'],($pagearr['currentpage']-1)*$pagearr['pagenum']);
+		$data = $this->Data_model->getData($getwhere,'createtime desc',$pagearr['pagenum'],($pagearr['currentpage']-1)*$pagearr['pagenum']);
 		$res = array(
 				'tpl'=>'list',
 				'tablefunc'=>$this->tablefunc,
@@ -86,7 +86,7 @@ class Report extends CI_Controller {
 			<td width=100>'.$user['username'].'</td>
 			<td width=200>'.$user['studentID'].'</td>
 			<td width=150>'.date("Y-m-d H:i:s", $item['createtime']).'</td>
-			<td width=80><a href="'.base_url('download/report/'.$item['id']).'">下载</a></td>
+			<td width=80><a href="'.base_url('index.php/download/report/'.$item['id']).'">下载</a></td>
 			<td width=50>'.$item['func'].'</td></tr>';
 		}
 		return $newstr;

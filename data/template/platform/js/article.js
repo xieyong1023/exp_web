@@ -11,7 +11,7 @@ $(document).ready(function(){
 	favorite.click(function(){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/addFavorite",
+			url: "http://" + location.hostname + "/index.php/member/addFavorite",
 			data: {
 				'articleID': articleID.val(),
 			},
@@ -113,7 +113,7 @@ $(document).ready(function(){
 	function addNewComment(content, article_author){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/comments/addNewComment",
+			url: "http://" + location.hostname + "/index.php/comments/addNewComment",
 			data: {
 				"opt": "ajax",
 				"category": "article",
@@ -142,7 +142,7 @@ $(document).ready(function(){
 	function addNewAttachReply(content, replytoID){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/comments/addNewAttachReply",
+			url: "http://" + location.hostname + "/index.php/comments/addNewAttachReply",
 			data: {
 				"opt": "ajax",
 				"text": content,
@@ -186,7 +186,7 @@ $(document).ready(function(){
 		new_comment_order = parseInt(pre_comment_order) + 1;
 		
 		$('img', new_comment).attr("src", text[0]);
-		$('.reply_person', new_comment).attr("href", "http://"+location.hostname + '/member/p/' + text[1]);
+		$('.reply_person', new_comment).attr("href", "http://"+location.hostname + '/index.php/member/p/' + text[1]);
 		$('.replyText', new_comment).text(text[2]);
 		$('.order', new_comment).text(new_comment_order.toString() + '楼');
 		$('.reply_time', new_comment).text(text[3]);
@@ -201,7 +201,7 @@ $(document).ready(function(){
 		$('.attachReplyInput', '#' + reply_id).before(new_attachReply).slideUp().addClass('hide');
 		
 		$('img', new_attachReply).attr('src', text[0]);
-		$('.reply_person', new_attachReply).attr('href', "http://"+location.hostname + '/member/p/' + text[1]);
+		$('.reply_person', new_attachReply).attr('href', "http://"+location.hostname + '/index.php/member/p/' + text[1]);
 		$('.replyText', new_attachReply).text(text[2]);
 		$('.reply_time', new_attachReply).text(text[3]);
 		$('.reply_person_name', new_attachReply).text(text[1]);
@@ -213,7 +213,7 @@ $(document).ready(function(){
 		var id = $(this).prev("#device_id").val();
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/applyExp",
+			url: "http://" + location.hostname + "/index.php/member/applyExp",
 			data: {
 				"id": id,
 			},
@@ -233,7 +233,7 @@ $(document).ready(function(){
 		var id = $(this).prev("#device_id").val();
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/member/releaseExp",
+			url: "http://" + location.hostname + "/index.php/member/releaseExp",
 			data: {
 				"id": id,
 			},

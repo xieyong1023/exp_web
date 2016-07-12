@@ -75,8 +75,10 @@ class Member_model extends CI_Model{
 			$data = array(
 					'logined' => 1,
 			);
-			if(empty($user['avatar'])){
-				$data['avatar'] = '/images/avatar/default.jpg';
+			$this->Cache_model->setLang();
+		    $config = $this->Cache_model->loadConfig();
+			if(empty($user['avatar']) || ! file_exists('./data/template/platform'.$user['avatar'])){
+				$data['avatar'] = '/images/avatar/default.png';
 			}
 			$this->db->where('username', $username);
 			$this->db->update('member', $data);			
@@ -132,7 +134,6 @@ class Member_model extends CI_Model{
 			$tmp = $this->db->get('member')->row_array();
 			$file_path = $tmp['avatar'];
 			$file_path = './data/template/platform'.$file_path;
-			@unlink($file_path);
 			
 			$this->db->where('id', $user_id);
 			$this->db->update('member', array('avatar' => '/images/avatar/'.$data['file_name']));
@@ -150,9 +151,9 @@ class Member_model extends CI_Model{
 		$user = $this->getUserDetail($user_name);
 	
 		//报告存放的根目录
-		$root_folder = './report';
+		$root_folder = './data/report';
 		if(! file_exists($root_folder)){
-			mkdir('./report');
+			mkdir($root_folder);
 		}
 		
 		//某个实验的单独目录
@@ -423,14 +424,15 @@ class Member_model extends CI_Model{
 	 * @$uid: 用户id
 	 */
 	function loadReport($uid){
-		$this->db->select('report.id as exp_id, exp_name, file_name, path, report.createtime, article.id as article_id');
-		$this->db->where('report.uid', $uid);
-		$this->db->join('article', 'article.title = exp_name');
+		$this->db->where('uid', $uid);
 		$this->db->order_by('createtime', ' desc');
 		$data = $this->db->get('report')->result_array();
 		
 		foreach($data as $key => $value){
 			$data[$key]['createtime'] = dateFormat($value['createtime']);
+			$this->db->where('id', $data[$key]['exp_id']);
+			$exp = $this->db->get('experiment')->row_array();
+			$data[$key]['article_id'] = $exp['article_id'];
 		}
 		
 		return $data;
@@ -454,7 +456,7 @@ class Member_model extends CI_Model{
 		$data = $this->db->get('report')->row_array();
 		
 		//删除文件
-		$file_path = './report/'.$data['path'];
+		$file_path = './data/report/'.$data['path'];
 		unlink(iconv('utf-8', 'gbk', $file_path));
 		
 		$this->db->delete('report', array('id' => $id));

@@ -12,9 +12,9 @@
 					<div id="Header">
 						<a href="<?php echo base_url();?>">首页</a>
 						<span class="chevron"> › </span>
-						<a href="<?php echo base_url('member/settings');?>">设置</a>
+						<a href="<?php echo site_url('member/settings');?>">设置</a>
 						<span class="chevron"> › </span>
-						<a href="<?php echo base_url('member/settings/avatar');?>">更改头像</a>
+						<a href="<?php echo site_url('member/settings/avatar');?>">更改头像</a>
 					</div>
 					<?php 
 					if($status != ''){
@@ -22,7 +22,7 @@
 					}
 					?>
 					<div class="form">
-						<form enctype="multipart/form-data" action="<?php echo base_url('member/settings/avatar');?>" method="post">
+						<form enctype="multipart/form-data" action="<?php echo site_url('member/settings/avatar');?>" method="post">
 						<table>
 							<tbody>
 								<tr>

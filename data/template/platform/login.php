@@ -13,7 +13,7 @@
 					<div id="Header">
 						<a href="<?php echo base_url();?>">首页</a>
 						<span class="chevron"> › </span>
-						<a href="<?php echo base_url('member/login');?>">登陆</a>
+						<a href="<?php echo site_url('member/login');?>">登陆</a>
 					</div>
 					<?php 
 					if($tip){

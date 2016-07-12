@@ -17,11 +17,11 @@
 						<span class="chevron"> › </span>
 						<?php 
 						$content = '';
-						$content .= '<a href="'.base_url('category/'.$article['category'][0]).'">';
+						$content .= '<a href="'.site_url('category/'.$article['category'][0]).'">';
 						$content .= $article['category']['dir'].'</a>';
 						if($article['category']['subDir'] != ''){
 							$content .= '<span class="chevron"> › </span>';
-							$content .= '<a href="'.base_url('category/'.$article['category'][0].'/'.$article['category'][1]).'">';
+							$content .= '<a href="'.site_url('category/'.$article['category'][0].'/'.$article['category'][1]).'">';
 							$content .= $article['category']['subDir'].'</a>';							
 						}
 						echo $content;
@@ -30,7 +30,7 @@
 					<div id="Article">
 						<div class="headline"><?php echo $article['title'];?></div>
 						<div id="Attr">
-							<div class="attr ">来自于  <a href="<?php echo base_url('member/p/'.$article['uid']);?>" id="ArticleAuthor"><?php echo $article['uid'];?></a></div>
+							<div class="attr ">来自于  <a href="<?php echo site_url('member/p/'.$article['uid']);?>" id="ArticleAuthor"><?php echo $article['uid'];?></a></div>
 							<div class="dot">•</div>
 							<div class="attr"><?php echo $article['puttime'];?></div>
 							<div class="dot">•</div>
@@ -40,7 +40,7 @@
 						<?php if(!empty($article['attachfile'])):?>
 						<div id="attachfile">
 							<span>附件: </span>
-							<a href="<?php echo base_url('download/article/'.$article['id'])?>">点我下载附件</a>
+							<a href="<?php echo site_url('download/article/'.$article['id'])?>">点我下载附件</a>
 						</div>
 						<?php endif;?>
 						<div class="buttonBar">
@@ -161,7 +161,7 @@
 							<tbody>
 								<tr>
 									<td width="48" valign="top">
-										<a class="reply_person" href="'.base_url('member/p/'.$value['author']).'"><img class="middle" src="'.$value['avatar'].'"/></a>
+										<a class="reply_person" href="'.site_url('member/p/'.$value['author']).'"><img class="middle" src="'.$value['avatar'].'"/></a>
 									</td>
 									<td width="10"></td>
 									<td class="replyContent">															
@@ -169,7 +169,7 @@
 										<div class="sep5"></div>
 										<div class="replyAttr">	
 											<span class="fade order">'.($key + 1).'楼</span>
-											<span><a class="highLight reply_person" href="'.base_url('member/p/'.$value['author']).'"><span class="reply_person_name">'.$value['author'].'</span></a></span>
+											<span><a class="highLight reply_person" href="'.site_url('member/p/'.$value['author']).'"><span class="reply_person_name">'.$value['author'].'</span></a></span>
 											<span class="fade reply_time">'.$value['createtime'].'</span>
 											<span class="highLight reply_button">回复('.count($value['attach']).')</span>
 										</div>';
@@ -183,12 +183,12 @@
 												<tbody>
 													<tr>
 														<td width="32" valign="top">
-															<a class="reply_person" href="'.base_url('member/p/'.$reply['author']).'"><img class="small" src="'.$reply['avatar'].'" /></a>
+															<a class="reply_person" href="'.site_url('member/p/'.$reply['author']).'"><img class="small" src="'.$reply['avatar'].'" /></a>
 														</td>
 														<td width="10"></td>
 														<td>
 															<span>
-																<span><a class="highLight reply_person reply_person_name" href="'.base_url('member/p/'.$reply['author']).'">'.$reply['author'].'</a></span>
+																<span><a class="highLight reply_person reply_person_name" href="'.site_url('member/p/'.$reply['author']).'">'.$reply['author'].'</a></span>
 																<span>: </span>
 																<span class="replyText">'.$reply['content'].'</span>
 															</span>

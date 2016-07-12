@@ -51,7 +51,7 @@ class Report_download extends CI_Controller {
 			<td>'.$item['name'].'</td>
 			<td width=100>'.$num.'</td>';
 			if($num != 0){
-				$newstr .= '<td width=100><a href="'.base_url('download/reports/'.$item['id']).'">点击下载</a></td></tr>';
+				$newstr .= '<td width=100><a href="'.site_url('download/reports/'.$item['id']).'">点击下载</a></td></tr>';
 			}else{
 				$newstr .= '<td width=100></td></tr>';
 			}

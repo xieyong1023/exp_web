@@ -43,7 +43,8 @@ class Article extends CI_Controller {
 			'totalnum'=>$this->Data_model->getDataNum($getwhere),
 			'pagenum'=>20
 		);
-		$data = $this->Data_model->getData($getwhere,'listorder,id desc',$pagearr['pagenum'],($pagearr['currentpage']-1)*$pagearr['pagenum']);
+		$data = $this->Data_model->getData($getwhere,'createtime desc',$pagearr['pagenum'],($pagearr['currentpage']-1)*$pagearr['pagenum']);
+
 		$res = array(
 				'tpl'=>'list',
 				'tablefunc'=>$this->tablefunc,
@@ -65,7 +66,8 @@ class Article extends CI_Controller {
 			$data['createtime'] = $time;
 			$data['updatetime'] = $time;
 			$data['puttime'] = human_to_unix($post['puttime']);
-			$data['uid'] = $this->session->userdata('uid');
+			$user = $this->Data_model->getSingle(array('username' => trim($post['author'])), 'member');
+			$data['uid'] = $user['id'];
 			$data['lang'] = $this->editlang;
 			$id=$this->Data_model->addData($data);
 			$this->Cache_model->deleteSome($this->tablefunc.'_'.$this->editlang);
@@ -90,7 +92,8 @@ class Article extends CI_Controller {
 			$data = elements($this->fields,$post);
 			$data['updatetime'] = time();
 			$data['puttime'] = human_to_unix($post['puttime']);
-			$data['uid'] = $this->session->userdata('uid');
+			$user = $this->Data_model->getSingle(array('username' => trim($post['author'])), 'member');
+			$data['uid'] = $user['id'];
 			$this->Data_model->editData(array('id'=>$post['id']),$data);
 			$category = $this->Data_model->getSingle(array('id'=>$data['category']),'category');
 			$cachefile = $category['model'].'/detail_'.$this->editlang.'_'.$category['dir'].'_'.$post['id'];
@@ -101,6 +104,8 @@ class Article extends CI_Controller {
 		}else{
 			$id = $this->uri->segment(4);
 			if($id > 0 && $view = $this->Data_model->getSingle(array('id'=>$id))){
+			    $member = $this->Data_model->getSingle(array('id' => $view['uid']), 'member');
+			    $view['author'] = $member['username'];
 				$res = array(
 						'tpl'=>'view',
 						'tablefunc'=>$this->tablefunc,
@@ -157,7 +162,11 @@ class Article extends CI_Controller {
 			if($item['attachfile'] == ''){
 				$file = '无';
 			}else{
-				$file = '<a href='.base_url('download/article/'.$item['id']).'>点击下载</a>';
+				$file = '<a href='.site_url('download/article/'.$item['id']).'>点击下载</a>';
+			}
+			$user = $this->Data_model->getSingle(array('id' => $item['uid']), 'member');
+			if(empty($user)){
+			    $user['username'] = '用户不存在';
 			}
 			$categorystr = isset($this->categoryarr[$item['category']])?'[<a href="'.site_url('category/'.$this->categoryarr[$item['category']]['dir']).$this->langurl.'" target="_blank"><font color="green">'.$this->categoryarr[$item['category']]['content'].'</font></a>]':'';
 			$newstr.='<tr id="tid_'.$item['id'].'">
@@ -168,6 +177,7 @@ class Article extends CI_Controller {
 			<td><a href="'.site_url('article/'.$item['id']).'" target="_blank" style="color:'.$item['color'].'">'.$item['title'].'</a></td>
 			<td width=80>'.$file.'</td>
 			<td width=150>'.date("Y-m-d H:i:s", $item['puttime']).'</td>
+			<td width=100>'.$user['username'].'</td>
 			<td width=50>'.$item['hits'].'</td>
 			<td width=50 >'.lang('status'.$item['status']).'</td>
 			<td width=50>'.$item['func'].'</td></tr>';

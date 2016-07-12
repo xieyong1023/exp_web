@@ -13,7 +13,7 @@
 					<div id="Header">
 						<a href="<?php echo base_url();?>">首页</a>
 						<span class="chevron"> › </span>
-						<a href="<?php echo base_url('member/signup');?>">注册</a>
+						<a href="<?php echo site_url('member/signup');?>">注册</a>
 					</div>
 					<div id="RegPage" class="form">
 						<table>

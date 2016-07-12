@@ -351,6 +351,7 @@ class Member extends CI_Controller
 	 */
 	public function p(){
 		$user_name = $this->uri->segment(3);
+		$user_name = urldecode($user_name);
 		if(! $user_name){
 			show_404();
 		}

@@ -5,7 +5,7 @@ $(document).ready(function(){
 	category.click(function(){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/admin/experiment/get_articles_by_category",
+			url: "http://" + location.hostname + "/index.php/admin/experiment/get_articles_by_category",
 			data: {
 				'category': category.val(),
 			},

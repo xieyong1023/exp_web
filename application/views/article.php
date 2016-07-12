@@ -33,6 +33,7 @@
 					<th align="left"><?=lang('title')?></th>
 					<th width=80  align="left"><?php echo '附件'?></th>
 					<th width=150 align="left"><?php echo '发布时间'?></th>
+					<th width=100 align="left">作者</th>
 					<th width=50   align="left"><?=lang('hits')?></th>
 					<th width=50 align="left"><?=lang('status')?></th>
 					<th width=50  align="left"><?=lang('operate')?></th>
@@ -115,6 +116,14 @@
 		</tr>
 		<tr>
 			<td>
+				作者
+			</td>
+			<td>
+				<input type="text" name="author" id="author"  class="input-text" value="<?=isset($view['author'])?$view['author']:'admin'?>" />
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<?=lang('order')?>
 			</td>
 			<td>
@@ -131,7 +140,7 @@
 		<tr>
 			<td>附件</td>
 			<?php if(isset($view['attachfile'])):?>
-			<td><a href="<?php echo base_url('download/article/').$view['id']; ?>">点击下载</a></td>
+			<td><a href="<?php echo site_url('download/article/').$view['id']; ?>">点击下载</a></td>
 			<?php else:?>
 			<td>无</td>
 			<?php endif;?>

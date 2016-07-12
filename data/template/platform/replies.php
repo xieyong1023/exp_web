@@ -11,7 +11,7 @@
 					<div id="Header">
 						<a href="<?php echo base_url();?>">首页</a>
 						<span class="chevron"> › </span>
-						<a href="<?php echo base_url('member/p/'.$user_detail['username']);?>"><?php echo $user_detail['username']?></a>
+						<a href="<?php echo site_url('member/p/'.$user_detail['username']);?>"><?php echo $user_detail['username']?></a>
 						<span class="chevron"> › </span>
 						<span class="black">全部回复</span>
 					</div>
@@ -21,7 +21,7 @@
 						foreach ($comments as $value){
 							$str .= 
 					'<div class="blue">
-						<span class="replyto">回复了 '.$value['replytouser'].' 创建的主题 › <a href="'.base_url('/article/'.$value['articleID']).'">'.$value['title'].'</a></span>
+						<span class="replyto">回复了 '.$value['replytouser'].' 创建的主题 › <a href="'.site_url('/article/'.$value['articleID']).'">'.$value['title'].'</a></span>
 						<span class="replytime">'.$value['createtime'].'</span>
 					</div>
 					<div class="arrow">
