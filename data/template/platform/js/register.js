@@ -6,6 +6,9 @@ $(document).ready(function (){
 	var userName = $("#UserName");
 	var studentID = $("#StudentID");
 	var userPass = $("#UserPass");
+	var school = $("#School");
+	var college = $("#College");
+	var department = $("#Department");
 	var userPassFirm = $("#UserPassFirm");
 	var verification = $("#Verification");
 	var vcode = $("#Vcode");
@@ -19,7 +22,7 @@ $(document).ready(function (){
 		"Verification" : ""
 	};
 	
-	var input = new Array(userName, studentID, userPass, userPassFirm, verification);
+	var input = new Array(userName, studentID, userPass, userPassFirm, verification, school, college, department);
 	
 	//验证码
 	setVcode();
@@ -73,6 +76,9 @@ $(document).ready(function (){
 				"userPass": $.md5(userPass.val()),
 				"studentID": studentID.val(),
 				'v_code': $("#Verification").text(),
+				'school': school.val(),
+				'college': college.val(),
+				'department': department.val(),
 			},
 			dataType: "json",
 			success: function(response){
@@ -164,6 +170,26 @@ $(document).ready(function (){
 				else 
 					return true;
 			}break;
+			case "School":{
+			    if(obj.val() == ''){
+			        showWarning(obj, "请输入学校");
+			    }else{return true;}
+			}
+			break;
+			case "College":{
+			    if(obj.val() == '')
+			        showWarning(obj, "请输入院系");
+			    else
+			        return true;
+			}
+			break;
+			case "Department":{
+			    if(obj.val() == '')
+			        showWarning(obj, "请输入专业");
+			    else
+			        return true;
+			}
+			break;
 			default:;
 		}
 		return false;//跳转到此处说明待检查的项没有通过。

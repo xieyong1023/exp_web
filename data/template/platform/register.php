@@ -32,12 +32,27 @@
 									<td><label for=UserPass">密码</label>
 									<td><input id="UserPass" type="password" name="UserPass" /></td>
 									<td class="msgTip"></td>
-								</tr>
+								</tr>                                
 								<tr>
 									<td><label for="UserPassFirm">确认密码</label>
 									<td><input id="UserPassFirm" type="password" name="UserPassFirm" /></td>
 									<td class="msgTip"></td>
 								</tr>
+                                <tr>
+                                    <td><label for="School">学校</label>
+                                    <td><input id="School" type="text" name="school" /></td>
+                                    <td class="msgTip"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="College">院系</label>
+                                    <td><input id="College" type="text" name="college" /></td>
+                                    <td class="msgTip"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="Department">专业</label>
+                                    <td><input id="Department" type="text" name="department" /></td>
+                                    <td class="msgTip"></td>
+                                </tr>
 								<tr>
 									<td><label for="Verification">验证码</label>
 									<td>

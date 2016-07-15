@@ -84,6 +84,9 @@ class Member extends CI_Controller
 			$user['logincount'] = 0;
 			$user['studentID'] = $post['studentID'];
 			$user['avatar'] = '/images/avatar/default.jpg';
+			$user['school'] = trim($post['school']);
+			$user['college'] = trim($post['college']);
+			$user['department'] = trim($post['department']);
 			$result = $this->Member_model->register($user);
 			echo json_encode($result);
 		}else{

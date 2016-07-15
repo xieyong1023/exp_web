@@ -47,11 +47,12 @@
 									<td width="50">
 										<a href="'.site_url($value['category']['model'].'/'.$value['id']).'" class="reply_count">'.$value['comments'].'</a>
 									</td>
-									<td width="10"></td>
-									<td width="25">
-										<a class="delete">删除</a>
-									</td>
-								</tr>
+									<td width="10"></td>';
+									if(($login == true) && strcasecmp($user_detail['user_name'], $this->session->userdata('user_name'))){
+									    $abc .=	'<td width="25"><a class="delete">删除</a></td>';
+									}
+									$abc .=
+								'</tr>
 							</tbody>
 						</table>
 					</div>';

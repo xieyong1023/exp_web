@@ -2,11 +2,11 @@
 class Data_model extends CI_Model
 {
 	var $table;
-	function __construct(){
+	public function __construct(){
   		parent::__construct();
 	}
 	
-	function setTable($table){
+	public function setTable($table){
 		$this->table = $table;
 	}
 	
