@@ -75,7 +75,7 @@ class Member extends CI_Controller {
 		if($post['id']&&$post['action']==site_aurl($this->tablefunc)){
 			$data = elements($this->fields,$post);
 			if(trim($data['password']) != ''){
-				$data['password'] = md5pass($data['password'], $data['salt']);
+				$data['password'] = md5pass(md5($data['password']), $data['salt']);
 			}else {
 				unset($data['password']);
 			}			
