@@ -1,4 +1,0 @@
-RewriteEngine on
-ErrorDocument 404 /404.html
-RewriteCond $1 !^(index\.php|admin\.php|vcode\.php|404\.html|entry.html|entry2.html|images|js|css|data|web|robots\.txt)
-RewriteRule ^(.*)$ index.php/$1 [L]
