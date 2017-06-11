@@ -126,3 +126,20 @@ function dateSpan($span){
 		return '大于1天';
 	}
 }
+
+/**
+ * 添加一个site_aurl函数
+ * todo codeIgniter版本升级后缺少该函数
+ *
+ * 返回后台管理路径
+ */
+function site_aurl($uri = '')
+{
+    $CI =& get_instance();
+    $config = $CI->config->config;
+    //2013-12-1
+    $suffix = ($config['url_suffix'] == FALSE) ? '' : $config['url_suffix'];
+    return str_replace($suffix,'',$CI->config->site_url($config['admin_folder'].'/'.$uri));
+
+    //return $CI->config->site_url($config['admin_folder'].'/'.$uri);
+}

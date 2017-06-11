@@ -588,6 +588,7 @@ class Cache_model extends CI_Model{
 		$cachestr = 'menu_array';
 		$cache = $this->CI->cache->get($cachestr);
 		if($cache === false){
+		    $this->load->database();
 			$this->db->select('id, parent, name, target, dir, model, pagesize');
 			$this->db->where(array(
 				'parent' => 0,
@@ -621,6 +622,7 @@ class Cache_model extends CI_Model{
 				}
 			}
 			$this->CI->cache->save($cachestr,$cache,2592000);
+            $this->db->close();
 		}
 		return $cache;
 	}

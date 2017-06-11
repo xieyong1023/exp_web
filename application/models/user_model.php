@@ -32,11 +32,7 @@ class User_model extends CI_Model{
 	}
 	
 	function logout(){
-		$userdata = array(
-				'uid' => '',
-				'usergroup' => '',
-				'username' => '',
-		);
+	    $userdata = ['uid', 'usergroup', 'username'];
 		$this->CI->session->unset_userdata($userdata);
 	}
 	

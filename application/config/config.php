@@ -24,7 +24,7 @@ $config['base_url']	= 'http://localhost';
 | The best, you will change it to other names.
 |
 */
-$config['admin_folder']='admin';
+$config['admin_folder']='Admin';
 
 /*
 |--------------------------------------------------------------------------
@@ -190,7 +190,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -254,14 +254,18 @@ $config['encryption_key'] = 'leex6cms';
 |
 */
 $config['sess_cookie_name']		= 'platform_ssession';
-$config['sess_expiration']		= 86400;
-$config['sess_expire_on_close']	= TRUE;
+
+
 $config['sess_encrypt_cookie']	= FALSE;
-$config['sess_use_database']	= TRUE;
+$config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'sessions';
-$config['sess_match_ip']		= FALSE;
-$config['sess_match_useragent']	= FALSE;
 $config['sess_time_to_update']	= 300;
+$config['sess_driver'] = 'files';
+$config['sess_expiration'] = 7200;
+$config['sess_save_path'] = 'D:\GitHub\exp_web_server\WWW\session';
+$config['sess_match_ip'] = FALSE;
+$config['sess_time_to_update'] = 300;
+$config['sess_regenerate_destroy'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------

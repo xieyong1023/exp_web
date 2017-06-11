@@ -94,12 +94,8 @@ class Member_model extends CI_Model{
 	 */
 	function logout(){
 		$user_name = $this->session->userdata('user_name');
-		
-		$session = array(
-			'id' => '',
-			'user_name' => '',
-			'login' => '',
-		);
+
+		$session = ['id', 'user_name', 'login'];
 		$this->session->unset_userdata($session);
 
 		//注销登陆状态
