@@ -189,13 +189,26 @@ date_default_timezone_set ("Asia/Shanghai");
 
 		define('APPPATH', BASEPATH.$application_folder.'/');
 	}
-if(!file_exists(FCPATH.'data/install.lock'))
-{
-	$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
-	$url = substr($url,0,-9);
-	$url .= 'install/index.php';
-	header("location:".$url);exit;
-}
+
+/**
+ * 注册自动加载类,自动加载规则要符合psr-4标准
+ *
+ * @author: xieyong<xieyong1023@qq.com>
+ * @date: 2017/6/12
+ * @see http://www.php-fig.org/psr/psr-4/
+ *
+ * @todo 解决MY_开头的类的加载问题
+ */
+spl_autoload_register(function ($class) {
+    if(strpos($class, 'CI_') === false && strpos($class, 'MY_') === false){
+        $path_array = explode('\\', $class);
+        //根命名空间在application/libraries目录下
+        $path = LIBDIR . implode(DIRECTORY_SEPARATOR, $path_array) . '.php';
+        if(file_exists($path)){
+            include_once ($path);
+        }
+    }
+});
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
