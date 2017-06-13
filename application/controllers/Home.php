@@ -1,6 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
-class Home extends CI_Controller {
+use \Core\BaseController;
+
+class Home extends BaseController {
 	var $menu;
 	
 	function __construct(){
