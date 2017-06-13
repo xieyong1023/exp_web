@@ -22,8 +22,8 @@ class BaseController extends \CI_Controller
      * @author: xieyong <xieyong1023@qq.com>
      * @date: 2017/6/13
      *
-     * @param     $data 输出数据
-     * @param int $error 错误码. 0-无错误
+     * @param string $data 输出数据
+     * @param int    $error 错误码. 0-无错误
      */
     public function outputJson($data, $error = 0)
     {

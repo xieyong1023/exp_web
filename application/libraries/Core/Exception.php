@@ -18,10 +18,10 @@ class Exception extends \Exception
      *                      ];
      */
     protected $error_list = [];
-    public function __construct($error_type)
+    public function __construct($error_type, $previous = null)
     {
         $code = $this->error_list[$error_type]['code'];
         $message = $this->error_list[$error_type]['chinese'];
-        parent::__construct($message, $code);
+        parent::__construct($message, $code, $previous);
     }
 }

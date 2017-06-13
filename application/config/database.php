@@ -48,6 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
+//2017/6/13
+//修改此处账号密码时需要同步修改 db.php内的设置
+
 $db['default']['hostname']='127.0.0.1';
 $db['default']['username']='root';
 $db['default']['password']='root';

@@ -1,6 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
-class Test extends CI_Controller
+use \Core\BaseController;
+
+class Test extends BaseController
 {
 	var $config, $menu;
 	function __construct()
@@ -11,7 +13,7 @@ class Test extends CI_Controller
 	
 	public function index()
 	{
-
+        var_dump(\Core\ConfigManager::get('db'));
 	}
 }
 ?>

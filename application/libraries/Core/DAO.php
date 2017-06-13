@@ -20,14 +20,16 @@ class DAO
      */
     protected $database = 'default';
     /**
-     * @var 操作句柄
+     * @var \PDO 操作句柄
      */
     protected $handle = null;
-    /**
-     * @var bool 长连接
-     */
-    protected $pconnect = false;
-    public function __construct()
+
+    public function __construct($handle)
+    {
+        $this->handle = $handle;
+    }
+
+    public function insert($data)
     {
 
     }

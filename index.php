@@ -200,6 +200,26 @@ spl_autoload_register(function ($class) {
         }
     }
 });
+
+/**
+ * 注册异常处理函数
+ *
+ * @author: xieyong<xieyong1023@qq.com>
+ * @date: 2017/6/13
+ */
+set_exception_handler(function (\Exception $e){
+    if(ENVIRONMENT === 'production'){
+        exit();
+    }
+
+    $data = [
+        'error' => $e->getCode(),
+        'data'  => $e->getMessage(),
+    ];
+
+    echo json_encode($data);
+    exit();
+});
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
