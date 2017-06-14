@@ -12,25 +12,53 @@ namespace Core;
 class DAO
 {
     /**
-     * @var 表名
+     * @var string 表名
      */
     protected $table;
     /**
+     * @var array 列名
+     */
+    protected $columns = [];
+    /**
      * @var string 数据库名
      */
-    protected $database = 'default';
+    protected $database;
     /**
-     * @var \PDO 操作句柄
+     * @var \PDO 数据库连接
      */
-    protected $handle = null;
+    protected $connection;
+    /**
+     * @var 实例
+     */
+    protected static $_instance = null;
 
-    public function __construct($handle)
+    /**
+     * 单例模式
+     */
+    private function __construct()
     {
-        $this->handle = $handle;
     }
 
-    public function insert($data)
+    public static function getInstance()
     {
+        if(isset(self::$_instance)){
+            return self::$_instance;
+        }
 
+        self::$_instance = new static();
+
+        return self::$_instance;
+    }
+
+    /**
+     * 初始化连接
+     *
+     * @author: xieyong <xieyong1023@qq.com>
+     * @date: 2017/6/14
+     * @param \PDO $connection
+     */
+    protected function setConnection($connection)
+    {
+        $this->connection = $connection;
     }
 }
