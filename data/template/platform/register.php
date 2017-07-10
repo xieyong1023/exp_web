@@ -57,7 +57,7 @@
 									<td><label for="Verification">验证码</label>
 									<td>
 										<input id="Verification" type="text" name="Verification"/ >
-										<div id="Vcode" class="no-select" title="点击刷新"></div>
+										<div id="Vcode" class="no-select" title="点击刷新"><?php echo $v_code ?></div>
 									</td>
 									<td class="msgTip">不区分大小写</td>
 								</tr>

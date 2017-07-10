@@ -1,21 +1,28 @@
-<?php if (! defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
-
+<?php
 /**
- * 会员模板
+ * 用户类（非后台用户）
+ *
+ * @author: xieyong <xieyong1023@qq.com>
+ * @Date: 2017/7/9
+ * @Time: 23:18
  */
-class Member_model extends CI_Model
+
+namespace Library\Member;
+
+class Member extends \CI_Model
 {
-    function __construct()
+    protected $table = 'member';
+
+    public function __construct()
     {
         parent::__construct();
     }
 
     /**
      * 根据用户id获取其头像的路径
+     * @param $user_id
      */
-    function getAvatarPath($user_id)
+    public function getAvatarPath($user_id)
     {
         $this->db->select('avatar');
         $this->db->where('id', $user_id);

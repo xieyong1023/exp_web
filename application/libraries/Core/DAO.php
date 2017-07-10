@@ -26,7 +26,7 @@ class DAO
     /**
      * @var \PDO 数据库连接
      */
-    protected $connection;
+    protected $pdo;
     /**
      * @var 实例
      */
@@ -54,11 +54,25 @@ class DAO
      * 初始化连接
      *
      * @author: xieyong <xieyong1023@qq.com>
-     * @date: 2017/6/14
-     * @param \PDO $connection
+     * @param \PDO $pdo
      */
-    protected function setConnection($connection)
+    protected function setPdo($pdo)
     {
-        $this->connection = $connection;
+        $this->pdo = $pdo;
+    }
+
+    /**
+     * 获取插入id
+     * @author: xieyong <xieyong1023@qq.com>
+     * @return string
+     * @throws \PDOException
+     */
+    public function lastInsertId()
+    {
+        try {
+            return $this->pdo->lastInsertId();
+        } catch (\PDOException $e) {
+
+        }
     }
 }

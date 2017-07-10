@@ -94,6 +94,7 @@ $lang['first_page'] = '首页';
 /*button*/
 $lang['btn_submit'] = '提交';
 $lang['btn_login'] = '登录';
+$lang['btn_multi_add'] = '批量添加';
 $lang['btn_add'] = '添加';
 $lang['btn_edit'] = '编辑';
 $lang['btn_editfile'] = '编辑';

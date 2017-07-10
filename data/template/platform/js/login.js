@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	var user_name = $("#UserName");
+	var student_id = $("#StudentID");
 	var user_pass = $("#UserPass");
 	var submit = $("#Submit");
 	var vcode = $("#Vcode");
@@ -12,12 +12,12 @@ $(document).ready(function(){
 	}).slideDown();
 	
 	submit.click(function(){
-		clearTip(user_name);
+		clearTip(student_id);
 		clearTip(user_pass);
 		clearTip(verification);
 		
-		if(user_name.val() == ''){
-			showWarning(user_name, "请输入用户名");
+		if(student_id.val() == ''){
+			showWarning(student_id, "请输入学号");
 		}else if(user_pass.val() == ''){
 			showWarning(user_pass, "请输入密码");
 		}else if(vcode.length != 0 && vcode.text() != verification.val()){
@@ -34,14 +34,14 @@ $(document).ready(function(){
 	vcode.click(function(){
 		setVcode();
 	});
-	
+
 	function login(){
 		$.ajax({
 			type: "POST",
 			url: "http://" + location.hostname + "/index.php/member/ajaxLogin",
 			data: {
 				"opt": "ajax",
-				"user_name": user_name.val(),
+				"student_id": student_id.val(),
 				"user_pass": $.md5(user_pass.val()),
 				"autoLogin": autoLogin.is(':checked'),  //如果选中则为true,否则为false
 			},
@@ -56,7 +56,7 @@ $(document).ready(function(){
 			error: function(){
 //				showWarning(submit, "不能连接服务器！");
 			},
-		});	
+		});
 	}
 
 	/*

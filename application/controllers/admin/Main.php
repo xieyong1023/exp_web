@@ -120,10 +120,7 @@ class Main extends CI_Controller {
 		}
 		$this->load->view('login.php');
 	}
-	
-	/*
-	 * 处理来自ajax的请求,返回目录下的所有目录和文件的信息
-	 */
+
 	public function attrlist(){
 		$usergroupid=$this->session->userdata('usergroup');
 		if(!$usergroupid){
@@ -206,10 +203,7 @@ class Main extends CI_Controller {
 		$result['file_list'] = $file_list;
 		echo json_encode($result);
 	}
-	
-	/*
-	 * 更新上传附件的图片的信息，ajax请求
-	 */
+
 	function attrupload(){
 		$usergroupid=$this->session->userdata('usergroup');
 		if(!$usergroupid){

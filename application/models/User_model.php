@@ -17,8 +17,7 @@ class User_model extends CI_Model{
 			return false;
 		}
 	}
-	
-	//为何一次登录要访问两次数据库？？？
+
 	function setLogin($user){
 		$this->CI->Data_model->setTable('usergroup');
 		$usergroup = $this->CI->Data_model->getSingle(array('id'=>$user['usergroup']));

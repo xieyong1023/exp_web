@@ -64,7 +64,7 @@
 	<?php $this->load->view('admin_foot.php');?>
 	
 	<?php elseif($tpl=='view'):?>
-	<script type="text/javascript" src="<?=base_url('js/admin.article.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('js/admin.upload.js')?>"></script>
 	<form name="formview" id="formview" action="" method="post">
 		<input type="hidden" name="action" id="action" value="<?=site_aurl($tablefunc)?>">
 		<input type="hidden" name="id" value="<?=isset($view['id'])?$view['id']:'';?>">

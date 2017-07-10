@@ -28,6 +28,9 @@ function setUrl(t,urlid){
 
 function submitTo(url,func,extra){
 	switch(func){
+        case 'multi_add':
+            multi_add(url);
+            break;
 		case 'add':
 			add(url);
 			break;
@@ -131,6 +134,33 @@ function add(url){
 	    	debugging(myDialog,url,XMLHttpRequest,textStatus,errorThrown,'add');
 		}
 	});
+}
+
+/**
+ * 批量添加用户
+ * @param url
+ */
+function multi_add(url){
+    var throughBox = $.dialog.through;
+    var myDialog = throughBox({title:lang.add,lock:true});
+    $.ajax({type: "POST",url:url,dataType:'json',
+        success: function (data) {
+            if(data.status==200){
+                var win = $.dialog.top;
+                myDialog.content(data.remsg);
+                win.$("#formview").validform();
+                var editors = setEditer(win);
+                myDialog.button({
+                    name:'取消'
+                });
+            }else{
+                showmsg(myDialog,data);
+            }
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+            debugging(myDialog,url,XMLHttpRequest,textStatus,errorThrown,'add');
+        }
+    });
 }
 
 function edit(url){
@@ -245,7 +275,6 @@ function debugging(tobj,url,XMLHttpRequest,textStatus,errorThrown,jsfunc){
 	msg += '<tr><td>readyStatus:</td><td>'+XMLHttpRequest.readyState+'</td></tr>';
 	msg += '<tr><td>textStatus:</td><td>'+textStatus+'</td></tr>';
 	msg += '<tr><td>errorThrown:</td><td>'+errorThrown+'</td></tr>';
-	msg += '<tr><td>help:</td><td>http://bbs.x6cms.com</td></tr>';
 	tobj.title('error');
 	tobj.content(msg);
 }

@@ -18,7 +18,10 @@ function top_redirect($url){
 
 function show_jsonmsg($data){
 	if(is_array($data)){
-		$return = $data;	
+		$return = $data;
+		if(! isset($return['status'])) {
+		    $return['status'] = 200;
+        }
 	}else{
 		$return = array('status'=>$data);
 	}
@@ -397,5 +400,3 @@ function getfilepath($filepath)
         return str_replace(",,","",",".$files);
     }
 }
-
-?>

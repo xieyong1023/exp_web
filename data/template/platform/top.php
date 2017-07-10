@@ -14,7 +14,7 @@
 					$topButton = '';
 					if($user_name === false){
 						$topButton .= '<div class="topButton"><a href="'.site_url('member/login').'">登陆</a></div>';
-						$topButton .= '<div class="topButton"><a href="'.site_url('member/signup').'">注册</a></div>';
+						$topButton .= '<div class="topButton"><a href="'.site_url('register').'">注册</a></div>';
 						echo $topButton;
 						
 					}else{

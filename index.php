@@ -181,6 +181,8 @@ if (is_dir($application_folder)) {
 // 定义命名空间根目录
 define('LIBPATH', APPPATH . 'libraries' . DIRECTORY_SEPARATOR);
 
+define('CONFIG_PATH', APPPATH . 'config' . DIRECTORY_SEPARATOR);
+
 /**
  * 注册自动加载类,自动加载规则要符合psr-4标准
  *
@@ -213,13 +215,16 @@ set_exception_handler(function (\Exception $e){
     }
 
     $data = [
-        'error' => $e->getCode(),
-        'data'  => $e->getMessage(),
+        'status' => $e->getCode(),
+        'remsg'  => $e->getMessage(),
     ];
 
     echo json_encode($data);
     exit();
 });
+
+require_once CONFIG_PATH . 'define.php';
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

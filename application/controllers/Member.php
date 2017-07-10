@@ -50,49 +50,20 @@ class Member extends CI_Controller
 	}
 	
 	//处理登陆请求
-	public function login($tip = false){
-		$this->Cache_model->setLang();
-		$config = $this->Cache_model->loadConfig();
-		$this->load->setPath();
-		$config['site_name'] = "登陆";
-		
-		$res = array(
-				'config' => $config,
-				'tip' => $tip,
-		);
-		
-		$this->load->view('platform/login', $res);
-	}
-	
-	//处理注册请求
-	public function register(){
-		$post = $this->input->post(NULL,TRUE);
-		if($post['opt'] == 'ajax'){	
-			$cookie = get_cookie('v_code');
-			if(! strcasecmp($cookie, $post['v_code'])){
-				echo json_encode('false');
-				exit;
-			}
-			
-			$user['username'] = $post['userName'];
-			$user['salt'] = random_string('alnum', 6);
-			$user['password'] = md5pass($post['userPass'], $user['salt']);
-			$user['createtime'] = time();
-			$user['lasttime'] = time();
-			$user['regip'] = $_SERVER["REMOTE_ADDR"];
-			$user['lastip'] = $_SERVER["REMOTE_ADDR"];
-			$user['logincount'] = 0;
-			$user['studentID'] = $post['studentID'];
-			$user['avatar'] = '/images/avatar/default.jpg';
-			$user['school'] = trim($post['school']);
-			$user['college'] = trim($post['college']);
-			$user['department'] = trim($post['department']);
-			$result = $this->Member_model->register($user);
-			echo json_encode($result);
-		}else{
-			header('Location: '.base_url().'member/signup');
-		}
-	}
+	public function login($tip = false)
+    {
+        $this->Cache_model->setLang();
+        $config = $this->Cache_model->loadConfig();
+        $this->load->setPath();
+        $config['site_name'] = "登陆";
+
+        $res = array(
+            'config' => $config,
+            'tip'    => $tip,
+        );
+
+        $this->load->view('platform/login', $res);
+    }
 	
 	//判断某项是否已经存在
 	public function isExist(){
@@ -283,39 +254,6 @@ class Member extends CI_Controller
 					}
 				}break;
 			}		
-		}
-	}
-	
-	//显示注册页面
-	public function signup(){
-		$this->Cache_model->setLang();
-		$config = $this->Cache_model->loadConfig();
-		$config['site_name'] = "注册";
-		
-		$res = array(
-				'config'=>$config,
-		);
-		
-		$this->load->setPath();
-		$this->load->view($config['site_template'].'/register', $res);
-	}
-	
-	/*
-	 * 传送验证码
-	 */
-	public function generateVcode(){
-		$post = $this->input->post("vcode");
-		if(isset($post) && $post == "vcode"){
-			$code = getRandChar(4);
-			$cookie = array(
-					'name' => 'v_code',
-					'value' => $code,
-					'expire' => '60',
-			);
-			set_cookie($cookie);
-			echo json_encode($code);
-		}else{
-			show_404();
 		}
 	}
 	

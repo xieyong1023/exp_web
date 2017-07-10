@@ -24,9 +24,6 @@ $(document).ready(function (){
 	
 	var input = new Array(userName, studentID, userPass, userPassFirm, verification, school, college, department);
 	
-	//验证码
-	setVcode();
-	
 	//点击刷新验证码
 	vcode.click(function(){
 		setVcode();
@@ -69,7 +66,7 @@ $(document).ready(function (){
 	function register(){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/index.php/member/register",
+			url: HOSTNAME + "/register/handleApply",
 			data: {
 				"opt": "ajax",
 				"userName": userName.val(),
@@ -82,7 +79,7 @@ $(document).ready(function (){
 			},
 			dataType: "json",
 			success: function(response){
-				if(response == "success"){
+				if(response.error == 0){
 					alert('注册成功!');
 					location.pathname = "";
 				}else{
@@ -204,7 +201,7 @@ $(document).ready(function (){
 		$.ajax({
 			type: "POST",
 			async: false,    //此处为同步通信!
-			url: "http://" + location.hostname + "/index.php/member/isExist",
+			url: HOSTNAME + "/member/isExist",
 			data: {"opt":"ajax", "item":item, "value":value},
 			dataType: "json",
 			success: function(response){
@@ -259,11 +256,13 @@ $(document).ready(function (){
 	function setVcode(){
 		$.ajax({
 			type: "POST",
-			url: "http://" + location.hostname + "/index.php/member/generateVcode",
+			url: HOSTNAME + "/register/generateVcode",
 			data: {"vcode": "vcode"},
 			dataType: "json",
 			success: function(response){
-				vcode.text(response);
+			    if(response.error == 0) {
+                    vcode.text(response.data);
+                }
 			},
 			error: function(){
 				vcode.text("无法显示验证码");
@@ -275,7 +274,7 @@ $(document).ready(function (){
 	 * 显示注册成功的页面
 	 */
 	function success(){
-		$("<div><p>注册成功</p><p>将转到首页</p></div").dialog({
+		$("<div><p>注册成功</p><p>将转到首页</p></div>").dialog({
 			title: "确认框",
 			resizable: false,
 			modal: true,

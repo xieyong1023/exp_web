@@ -28,7 +28,7 @@
 						<table>
 							<tbody>
 								<tr>
-									<td><label for="UserName">用户名</label>
+									<td><label for="StudentID">学号</label>
 									<td><input id="UserName" type="text" /></td>
 									<td class="msgTip"></td>
 								</tr>
