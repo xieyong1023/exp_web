@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost';
+$config['base_url']	= 'http://whucs.cn';
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +79,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'zh_cn';
+$config['language']	= 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -260,9 +260,9 @@ $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'sessions';
 $config['sess_time_to_update']	= 300;
-$config['sess_driver'] = 'files';
+$config['sess_driver'] = 'database';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = 'D:\GitHub\exp_web_server\WWW\session';
+$config['sess_save_path'] = 'sessions';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;

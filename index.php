@@ -307,15 +307,52 @@ define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
 
 /***********************************************************************************/
-//定义命名空间根地址
-define('LIBPATH', APPPATH . DIRECTORY_SEPARATOR . 'libraries');
+// 定义命名空间根目录
+define('LIBPATH', APPPATH . 'libraries' . DIRECTORY_SEPARATOR);
 
+define('CONFIG_PATH', APPPATH . 'config' . DIRECTORY_SEPARATOR);
 
-//添加自定义的加载器
-require_once LIBPATH . DIRECTORY_SEPARATOR . 'Core' . DIRECTORY_SEPARATOR . 'Autoload.php';
+/**
+ * 注册自动加载类,自动加载规则要符合psr-4标准
+ *
+ * @author: xieyong<xieyong1023@qq.com>
+ * @date: 2017/6/12
+ * @see http://www.php-fig.org/psr/psr-4/
+ *
+ * @todo 解决MY_开头的类的加载问题
+ */
+spl_autoload_register(function ($class) {
+    if (strpos($class, 'CI_') === false && strpos($class, 'MY_') === false) {
+        $path_array = explode('\\', $class);
+        //根命名空间在application/libraries目录下
+        $path = LIBPATH . implode(DIRECTORY_SEPARATOR, $path_array) . '.php';
+        if (file_exists($path)) {
+            include_once($path);
+        }
+    }
+});
 
-spl_autoload_register('\Core\Autoload::psr4_autoload');
+/**
+ * 注册异常处理函数
+ *
+ * @author: xieyong<xieyong1023@qq.com>
+ * @date: 2017/6/13
+ */
+set_exception_handler(function (\Exception $e){
+    if(ENVIRONMENT === 'production'){
+        exit();
+    }
 
+    $data = [
+        'status' => $e->getCode(),
+        'remsg'  => $e->getMessage(),
+    ];
+
+    echo json_encode($data);
+    exit();
+});
+
+require_once CONFIG_PATH . 'define.php';
 
 /***********************************************************************************/
 

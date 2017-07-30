@@ -73,12 +73,12 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-    'dsn'	=> '',
-    'hostname' => '127.0.0.1',
+    'dsn'	=> 'mysql:host=172.18.0.4;dbname=platform',
+    'hostname' => '',
     'username' => 'root',
-    'password' => 'root',
+    'password' => '123456',
     'database' => 'platform',
-    'dbdriver' => 'mysqli',
+    'dbdriver' => 'pdo',
     'dbprefix' => '',
     'pconnect' => FALSE,
     'db_debug' => (ENVIRONMENT !== 'production'),
