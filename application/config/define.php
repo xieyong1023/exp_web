@@ -7,3 +7,4 @@
  * @Time: 23:03
  */
 
+define('NOWTIME', time());

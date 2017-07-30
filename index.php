@@ -307,6 +307,9 @@ define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
 
 /***********************************************************************************/
+// 时区设置
+date_default_timezone_set('Asia/Shanghai');
+
 // 定义命名空间根目录
 define('LIBPATH', APPPATH . 'libraries' . DIRECTORY_SEPARATOR);
 

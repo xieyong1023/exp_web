@@ -22,17 +22,12 @@ class BaseController extends \CI_Controller
      * @author: xieyong <xieyong1023@qq.com>
      * @date: 2017/6/13
      *
-     * @param string $data 输出数据
-     * @param int    $error 错误码. 0-无错误
+     * @param mixed $data 输出数据
+     * @param int   $error 错误码. 0-无措，非0-有错
      */
-    public function outputJson($data, $error = 0)
+    public function outputJson($data = [], int $error = 0)
     {
-        $rtv = [
-            'error' => 0,
-            'data'  => $data,
-        ];
-
-        echo json_encode($rtv);
+        echo json_encode(['error' => $error, 'data' => $data]);
         exit();
     }
 }

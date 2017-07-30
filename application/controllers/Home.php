@@ -2,7 +2,9 @@
     exit('No direct script access allowed');
 }
 
-class Home extends CI_Controller
+use Core\BaseController;
+
+class Home extends BaseController
 {
     var $menu;
 
@@ -44,27 +46,23 @@ class Home extends CI_Controller
         $login = false;
         if (($user_name = $this->session->userdata('user_name')) != false) {
             $login = true;
+            //个人信息
+            $user_detail = $this->Member_model->getUserDetail($user_name);
+            $user_detail['createtime'] = dateFormat($user_detail['createtime']);
+            $user_detail['avatar'] = $config['site_templateurl'] . $user_detail['avatar'];
+            //文章数
+            $countMyArticle = $this->Article_model->countMyArticle($user_detail['id']);
+            //收藏数
+            $countFavorite = $this->Member_model->countFavorite($user_detail['id']);
+            //报告数
+            $countMyReports = $this->Member_model->countMyReports($user_detail['id']);
         }
-
-        //个人信息
-        $user_detail = $this->Member_model->getUserDetail($user_name);
-        $user_detail['createtime'] = dateFormat($user_detail['createtime']);
-        $user_detail['avatar'] = $config['site_templateurl'] . $user_detail['avatar'];
 
         //点击排行
         $hitsList = $this->Article_model->loadMostHits();
 
-        //文章数
-        $countMyArticle = $this->Article_model->countMyArticle($user_detail['id']);
-
         //实验数
         $countMyExp = $this->Experiment_model->countMyExp($user_name);
-
-        //收藏数
-        $countFavorite = $this->Member_model->countFavorite($user_detail['id']);
-
-        //报告数
-        $countMyReports = $this->Member_model->countMyReports($user_detail['id']);
 
         $paging = array(
             'dir'       => '',
@@ -79,12 +77,12 @@ class Home extends CI_Controller
             'list'           => $list,
             'paging'         => $paging,
             'login'          => $login,
-            'user_detail'    => $user_detail,
-            'hitsList'       => $hitsList,
-            'countMyArticle' => $countMyArticle,
-            'countMyExp'     => $countMyExp,
-            'countFavorite'  => $countFavorite,
-            'countMyReports' => $countMyReports,
+            'user_detail'    => $user_detail ?? [],
+            'hitsList'       => $hitsList ?? [],
+            'countMyArticle' => $countMyArticle ?? 0,
+            'countMyExp'     => $countMyExp ?? 0,
+            'countFavorite'  => $countFavorite ?? 0,
+            'countMyReports' => $countMyReports ?? 0,
         );
 
         $this->load->view('platform/home', $res);
